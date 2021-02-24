@@ -61,6 +61,10 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <a class="icons" href="{{ route('admin.shareholders.edit', $shareholder->id) }}">
+                                        <button type="button" class="btn btn-icon btn-light-warning mr-1 mb-1">
+                                            <i class="bx bx-edit-alt"></i></button>
+                                    </a>
                                     @if($shareholder->active == 1)
                                     <form action="{{ route('admin.shareholders.unactive', $shareholder->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to set UnActive {{ $shareholder->ref_name }}?');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">

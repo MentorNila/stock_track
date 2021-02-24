@@ -41,4 +41,18 @@ class ShareholdersController extends Controller
         $shareholder->save();
         return redirect()->route('admin.shareholders.index');
     }
+
+    public function edit($shareholderId)
+    {
+        $shareholder = Shareholder::find($shareholderId);
+        return view('Shareholder::edit', compact('shareholder'));
+    }
+    
+    public function update(Request $request, $shareholderId)
+    {
+        $shareholder = Shareholder::find($shareholderId);
+        $shareholder->update($request->all());
+        
+        return redirect()->route('admin.shareholders.index');
+    }
 }
