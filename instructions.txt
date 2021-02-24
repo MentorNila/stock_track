@@ -1,0 +1,17 @@
+php artisan migrate:refresh --seed
+composer install
+
+rm -rf node_modules
+rm package-lock.json yarn.lock
+npm cache clear --force
+
+npm install cross-env
+npm install
+npm run dev
+
+to do / missing:
+10k form doesnt work
+taxonomy is missing
+
+Fixes/changes i made:
+Tags.php line 116
