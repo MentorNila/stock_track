@@ -33,41 +33,42 @@
                                 <th>Number of Paper Certificates to Issue</th>
                                 <th>Reason/Reservation</th>
                                 <th>Received From</th>
-                                <th>Restriction</th>
-                                <th>Sale Amt/Share</th>
-                                <th>Acquired</th>
-                                <th>FMW</th>
                                 <th class="actions">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($certificates as $currentCertificate)
                             <tr>
                                 <td>
+                                    {{$currentCertificate->stock_class}}
                                 </td>
                                 <td>
+                                    {{$currentCertificate->total_shares}}
                                 </td>
                                 <td>
+                                    {{$currentCertificate->issued_date}}
                                 </td>
                                 <td>
+                                    {{$currentCertificate->nr_of_paper}}
                                 </td>
                                 <td>
+                                    {{$currentCertificate->reservation}}
                                 </td>
                                 <td>
+                                    {{$currentCertificate->received_from}}
                                 </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <a href="/admin/shareholders/delete/" title="delete" onclick="return confirm('Are you sure?')">
-                                    <i class="fas fa-trash"></i>
+                                <td style="min-width:120px;">
+                                    <a class="icons" href="{{ route('admin.certificates.edit', $currentCertificate->id) }}">
+                                        <button type="button" class="btn btn-icon btn-light-warning mr-1 mb-1">
+                                            <i class="bx bx-edit-alt"></i>
+                                        </button>
+                                    </a>
+                                    <a href="/admin/certificates/delete/{{$currentCertificate->id}}" title="delete" onclick="return confirm('Are you sure you want to delete this Certificate?')">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -78,138 +79,150 @@
 </div>
 <!-- Modal -->
 <div id="createCertificate" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">New Issue</h4>
-    </div>
-    <div class="modal-body">
-        <form action="{{ route("admin.shareholders.store") }}" id="shareholderForm" method="POST" enctype="multipart/form-data">
-        @csrf
-
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                    <label for="target">Add to Shareholder</label>
-                    <select name="shareholder_id" id="shareholder_id" class="form-control">
-                        @foreach($shareholders as $shareholder)
-                        <option value="{{$shareholder->id}}">{{$shareholder->name_as_appears_on_certificate}}</option>
-                        @endforeach
-                    </select>
-                </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Issue</h4>
             </div>
-            
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Stock Class</label>
-                    <input type="text" id="stock_class" name="stock_class" class="form-control " value="" required>
-                </div>
+            <div class="modal-body">
+                <form action="{{ route("admin.certificates.store") }}" id="certificateForm" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                            <label for="target">Add to Shareholder</label>
+                            <select name="shareholder_id" id="shareholder_id" class="form-control">
+                                @foreach($shareholders as $shareholder)
+                                <option value="{{$shareholder->id}}">{{$shareholder->name_as_appears_on_certificate}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6" >
-                    <label for="target">Total Shares</label>
-                    <input type="text" id="total_shares" name="total_shares" class="form-control" value="" required>
-                </div>
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Stock Class</label>
+                            <input type="text" id="stock_class" name="stock_class" class="form-control " value="" required>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Total Shares</label>
+                            <input type="text" id="total_shares" name="total_shares" class="form-control" value="" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Issued Date</label>
+                            <input type="text" id="issued_date" name="issued_date" class="form-control datepicker" value="" required>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Reason/Reservation</label>
+                            <input type="text" id="reservation" name="reservation" class="form-control " value="" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Nr of Paper Certificates to Issue</label>
+                            <input type="text" id="nr_of_paper" name="nr_of_paper" class="form-control " value="" required>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Restriction</label>
+                            <input type="text" id="restriction" name="restriction" class="form-control " value="" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('received_from') ? 'has-error' : '' }} col-lg-6">
+                            <label for="received_from">Received From</label>
+                            <input type="text" id="received_from" name="received_from" class="form-control " value="" required>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('broker') ? 'has-error' : '' }} col-lg-6">
+                            <label for="broker">Broker involved for Cost Basis</label>
+                            <input type="text" id="broker" name="broker" class="form-control " value="" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="checkbox" id="costOfBasisReceived" value="1" name="cost_of_basis_received" style="margin-top:5px;">
+                            <label for="vehicle1" style="margin-top:0px; margin-left: 2px;">Cost Basis Received?</label><br>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div id="costItems" class="hidden">
+                        <div class="row">
+                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                <label for="target">Acquired</label>
+                                <select name="acquired" id="acquired" class="form-control">
+                                    <option></option>
+                                    @foreach($shareholders as $shareholder)
+                                    <option value="{{$shareholder->id}}">{{$shareholder->name_as_appears_on_certificate}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                <label for="target">Sale Amt/Share</label>
+                                <input type="text" id="amt_share" name="amt_share" class="form-control " value="">
+                            </div>
+
+                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                <label for="target">FMW</label>
+                                <input type="text" id="fmw" name="fmw" class="form-control " value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Create</button>
+                    </div>
+                </form>
             </div>
 
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Issued Date</label>
-                    <input type="text" id="issued_date" name="issued_date" class="form-control datepicker" value="" required>
-                </div>
-
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Reason/Reservation</label>
-                    <input type="text" id="reservation" name="reservation" class="form-control " value="" required>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Nr of Paper Certificates to Issue</label>
-                    <input type="text" id="nr_of_paper" name="nr_of_paper" class="form-control " value="" required>
-                </div>
-
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Restriction</label>
-                    <input type="text" id="restriction" name="restriction" class="form-control " value="" required>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Received From</label>
-                    <input type="text" id="received_from" name="received_from" class="form-control " value="" required>
-                </div>
-
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Broker involved for Cost Basis</label>
-                    <input type="text" id="broker" name="broker" class="form-control " value="" required>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <input type="checkbox" id="cost_of_basis_received" name="cost_of_basis_received" style="margin-top:5px;">
-                    <label for="vehicle1" style="margin-top:0px; margin-left: 2px;">Cost Basis Received?</label><br>
-                </div>
-            </div>
-
-            <hr />
-
-            <div id="costItems" class="row hidden" style="margin-top: 10px;">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                    <label for="target">Sale Amt/share</label>
-                    <input type="text" id="address" name="address" class="form-control " value="" required>
-                </div>
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                    <label for="target">Acquired</label>
-                    <input type="text" id="address" name="address" class="form-control " value="" required>
-                </div>
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                    <label for="target">FMV</label>
-                    <input type="text" id="address" name="address" class="form-control " value="" required>
-                </div>
-            </div>
-
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Create</button>
         </div>
-        </form>
     </div>
-
-</div>
-</div>
-<style type="text/css">
-    .hidden {
-        display: none;
-    }
-</style>
-@endsection
-{{-- vendor scripts --}}
-@section('vendor-scripts')
-<script src="{{asset('vendors/js/tables/datatable/datatables.min.js')}}"></script>
-<script src="{{asset('vendors/js/tables/datatable/dataTables.bootstrap4.min.js')}}"></script>
-@endsection
-
-{{-- page scripts --}}
-@section('page-scripts')
-<script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script>
-  $( document ).ready(function() {
-    $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
-});
-  </script>
-@endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).on('click', function() {
-        if ($('#costOfBasisReceived').is(':checked')) {
-            $('#costItems').removeClass('hidden');
-        } else {
-            $('#costItems').addClass('hidden');
+    <style type="text/css">
+        .hidden {
+            display: none;
         }
-    })
-</script>
+    </style>
+    @endsection
+    {{-- vendor scripts --}}
+    @section('vendor-scripts')
+    <script src="{{asset('vendors/js/tables/datatable/datatables.min.js')}}"></script>
+    <script src="{{asset('vendors/js/tables/datatable/dataTables.bootstrap4.min.js')}}"></script>
+    @endsection
+
+    {{-- page scripts --}}
+    @section('page-scripts')
+    <script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+        });
+    </script>
+    @endsection
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).on('click', function() {
+            if ($('#costOfBasisReceived').is(':checked')) {
+                $('#costItems').removeClass('hidden');
+            } else {
+                $('#costItems').addClass('hidden');
+            }
+        })
+    </script>

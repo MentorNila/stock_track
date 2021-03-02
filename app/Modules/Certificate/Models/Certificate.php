@@ -20,6 +20,8 @@ class Certificate extends MultitenancyModel
         'nr_of_paper',
         'restriction',
         'received_from',
+        'acquired',
+        'amt_share',
         'broker',
         'cost_of_basis_received',
     ];

@@ -24,16 +24,38 @@ class CertificatesController extends Controller
     public function index(Request $request)
     {
         $shareholders = Shareholder::get();
-        return view('Certificate::index', compact('shareholders'))->with(['shareholders' => $shareholders]);
+        $certificates = Certificate::get();
+        return view('Certificate::index', compact('shareholders', 'certificates'))->with(['shareholders' => $shareholders, 'certificates' => $certificates]);
     }
 
     public function store(Request $request) {
-        $certificate = Certificate::create($request->all());
-        return redirect()->route('admin.shareholders.index');
+        $certificateData = $request->all();
+        $activeCompany = $request->session()->get('activeCompany');
+        $certificateData['company_id'] = $activeCompany->id;
+        $certificateData = Certificate::create($certificateData);
+        return redirect()->route('admin.certificates.index');
     }
 
-    public function delete($feedbackId) {
-        Feedback::destroy($feedbackId);
-        return redirect()->route('admin.feedbacks.index');
+    
+    public function edit($certificateId)
+    {
+        $user_id = Auth::user()->id;
+        $shareholders = Shareholder::get();
+        $certificate = Certificate::find($certificateId);
+
+        return view('Certificate::edit', compact('certificate', 'shareholders'));
+    }
+
+    public function update(Request $request, $certificateId)
+    {
+        $certificate = Certificate::find($certificateId);
+        $certificate->update($request->all());
+        
+        return redirect()->route('admin.certificates.index');
+    }
+
+    public function delete($certificateId) {
+        Certificate::destroy($certificateId);
+        return redirect()->route('admin.certificates.index');
     }
 }

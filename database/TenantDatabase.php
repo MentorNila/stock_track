@@ -261,6 +261,8 @@ class TenantDatabase {
             $table->string('nr_of_paper')->nullable();
             $table->string('restriction')->nullable();
             $table->string('received_from')->nullable();
+            $table->string('acquired')->nullable();
+            $table->string('amt_share')->nullable();
             $table->string('broker')->nullable();
             $table->boolean('cost_of_basis_received')->default(0);
             $table->timestamps();
@@ -277,6 +279,7 @@ class TenantDatabase {
             $table->string('how_received')->nullable();
             $table->string('track')->nullable();
             $table->string('content')->nullable();
+            $table->string('status')->default(1);
             $table->string('assigned_to')->nullable();
             $table->timestamps();
         }, $clientId);

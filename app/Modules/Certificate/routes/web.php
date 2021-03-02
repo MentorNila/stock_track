@@ -4,7 +4,9 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.', 'module' => 'Certificate',
     Route::GET('/certificates', 'CertificatesController@index')->name('certificates.index');
     Route::GET('/certificates/create', 'CertificatesController@create')->name('certificates.create');
 
-    Route::GET('/certificates/delete/{shareholderId}', 'CertificatesController@delete')->name('certificates.delete');
+    Route::GET('/certificates/delete/{certificateId}', 'CertificatesController@delete')->name('certificates.delete');
+    Route::GET('/certificates/edit/{certificateId}', 'CertificatesController@edit')->name('certificates.edit');
+    Route::POST('/certificates/update/{certificateId}', 'CertificatesController@update')->name('certificates.update');
 
     Route::post('/certificates/store', [
         'as' => 'certificates.store',

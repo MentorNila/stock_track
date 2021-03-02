@@ -34,14 +34,6 @@
         @endcan -->
 
             </li>
-            <!-- @can('user_access')
-                    <li class="nav-item {{ request()->is('admin/users*') ? 'active' : '' }}"><a href="{{ route("admin.users.index") }}"><i class="menu-livicon" data-icon="users"></i><span class="menu-title" data-i18n="{{ trans('cruds.user.title') }}">Users</span></a>
-                    </li>
-                @endcan
-
-                <li class="nav-item {{ request()->is('admin/employees*') ? 'active' : '' }}"><a href="{{ route("admin.employees.index") }}"><i class="menu-livicon" data-icon="building"></i><span class="menu-title" data-i18n="{{ trans('cruds.user.title') }}">Employees</span></a>
-                </li> -->
-
             <li class="nav-item {{ request()->is('admin/shareholders*') ? 'active' : '' }}"><a href="{{ route("admin.shareholders.index") }}"><i class="menu-livicon" data-icon="dashboard"></i><span class="menu-title" data-i18n="{{ trans('cruds.user.title') }}">Shareholders</span></a>
             </li>
 
@@ -87,10 +79,8 @@
                 </a>
             </li>
 
-            <!-- @can('role_access')
-                    <li class="nav-item {{ request()->is('admin/roles*') ? 'active' : '' }}"><a href="{{ route("admin.roles.index") }}"><i class="menu-livicon" data-icon="diagram"></i><span class="menu-title" data-i18n="{{ trans('cruds.role.title') }}">{{ trans('cruds.role.title') }}</span></a>
-                    </li>
-                    @endcan -->
+            <li class="nav-item {{ request()->is('admin/users*') ? 'active' : '' }}"><a href="{{ route("admin.users.index") }}"><i class="menu-livicon" data-icon="users"></i><span class="menu-title" data-i18n="{{ trans('cruds.user.title') }}">Users</span></a>
+            </li>
 
         </ul>
     </div>
