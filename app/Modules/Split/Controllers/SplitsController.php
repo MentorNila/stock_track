@@ -2,14 +2,8 @@
 
 namespace App\Modules\Split\Controllers;
 
-use App\Modules\Company\Logic\CompanyLogic;
 use App\Http\Controllers\Controller;
-use App\Modules\Role\Logic\Roles;
-use App\Modules\Company\Models\Company;
-use App\Modules\User\Models\User;
-use App\Modules\Employee\Models\Employee;
-use App\Modules\Goal\Models\Goal;
-use App\Modules\Shareholder\Models\Shareholder;
+use App\Modules\Split\Models\Split;
 use Gate;
 use Route;
 use Illuminate\Support\Facades\Auth;
@@ -22,23 +16,33 @@ class SplitsController extends Controller
 {
     public function index(Request $request)
     {
-        $shareholders = Shareholder::get();
-        return view('Split::index', compact('shareholders'))->with(['shareholders' => $shareholders]);
+        $splits = Split::get();
+        return view('Split::index', compact('splits'));
     }
 
-    public function pending_transact(Request $request)
+    public function edit($splitId) {
+        $split = Split::find($splitId);
+        return view('Split::edit', compact('split'));
+    }
+
+    public function update(Request $request, $splitId)
     {
-        $shareholders = Shareholder::get();
-        return view('Split::pending', compact('shareholders'))->with(['shareholders' => $shareholders]);
+        $split = Split::find($splitId);
+        $split->update($request->all());
+        
+        return redirect()->route('admin.splits.index');
     }
 
     public function store(Request $request) {
-        $shareholder = Shareholder::create($request->all());
-        return redirect()->route('admin.shareholders.index');
+        $splitData = $request->all();
+        $activeCompany = $request->session()->get('activeCompany');
+        $splitData['company_id'] = $activeCompany->id;
+        Split::create($splitData);
+        return redirect()->route('admin.splits.index');
     }
 
-    public function delete($feedbackId) {
-        Feedback::destroy($feedbackId);
-        return redirect()->route('admin.feedbacks.index');
+    public function delete($splitId) {
+        Split::destroy($splitId);
+        return redirect()->route('admin.splits.index');
     }
 }

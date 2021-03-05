@@ -36,7 +36,7 @@
                                 <th>How Received</th>
                                 <th>Tracking #</th>
                                 <th>Assigned</th>
-                                <th class="actions">Actions</th>
+                                <th class="actions" style="min-width:110px;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,7 +49,7 @@
                                     {{$currentTransact->item_count}}
                                 </td>
                                 <td>
-
+                                    {{$companiesArray[$currentTransact->company_id]}}
                                 </td>
                                 <td>
                                     {{$currentTransact->scl}}
@@ -64,12 +64,20 @@
                                     {{$currentTransact->how_received}}
                                 </td>
                                 <td>
-                                    {{$currentTransact->tracking}}
+                                    {{$currentTransact->track}}
                                 </td>
                                 <td>
-
+                                    {{$usersArray[$currentTransact->assigned_to]}}
                                 </td>
-                                <td>
+                                <td style="min-width:110px;">
+                                    <a class="icons" href="{{ route('admin.transacts.edit', $currentTransact->id) }}">
+                                        <button type="button" class="btn btn-icon btn-light-warning mr-1 mb-1">
+                                            <i class="bx bx-edit-alt"></i>
+                                        </button>
+                                    </a>
+                                    <a href="/admin/transacts/delete/{{$currentTransact->id}}" title="delete" onclick="return confirm('Are you sure you want to delete this Transaction?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
@@ -134,7 +142,7 @@
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                             <label for="target">Tracking #</label>
-                            <input type="text" id="ssno" name="ssno" class="form-control " value="" required>
+                            <input type="text" id="track" name="track" class="form-control " value="" required>
                         </div>
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                             <label for="target">Assigned</label>

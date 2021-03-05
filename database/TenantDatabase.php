@@ -283,6 +283,22 @@ class TenantDatabase {
             $table->string('assigned_to')->nullable();
             $table->timestamps();
         }, $clientId);
+        
+        MultitenancySchema::create('splits', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('company_id');
+            $table->string('type');
+            $table->string('stock_class');
+            $table->datetime('record_date')->nullable();
+            $table->datetime('pay_date')->nullable();
+            $table->string('ordinary_devidend')->nullable();
+            $table->string('cash_devidend')->nullable();
+            $table->string('capital_gains')->nullable();
+            $table->string('non_devidend_distribution')->nullable();
+            $table->string('rate')->nullable();
+            $table->string('status')->default(1);
+            $table->timestamps();
+        }, $clientId);
 
         MultitenancyHelper::run(function($client) {
             $timestamp = Carbon::now();

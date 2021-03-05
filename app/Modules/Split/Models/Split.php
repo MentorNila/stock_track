@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Modules\Transaction\Models;
+namespace App\Modules\Split\Models;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Multitenancy\MultitenancyModel;
 
-class Transaction extends MultitenancyModel
+class Split extends MultitenancyModel
 {
-    public $table = 'transactions';
+    public $table = 'splits';
 
     protected $fillable = [
         'company_id',
-        'sec_tracking',
-        'item_count',
-        'scl',
-        'control_ticket',
-        'received',
-        'inw_received',
-        'track',
-        'content',
-        'assigned_to'
+        'type',
+        'stock_class',
+        'record_date',
+        'pay_date',
+        'ordinary_devidend',
+        'cash_devidend',
+        'capital_gains',
+        'non_devidend_distribution',
+        'rate',
+        'status'
     ];
 
 }

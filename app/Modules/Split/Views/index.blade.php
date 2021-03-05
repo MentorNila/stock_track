@@ -5,6 +5,7 @@
 {{-- page styles --}}
 @section('page-styles')
 <link rel="stylesheet" type="text/css" href="{{asset('css/pages/page-users.css')}}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @endsection
 @section('content')
 <div class="row grid-title">
@@ -14,7 +15,7 @@
 </div>
 <div style="margin-bottom: 10px;" class="row">
     <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-        <a type="button" data-toggle="modal" data-target="#createShareholder" class="btn btn-primary btn-icon rounded-circle glow mr-1 mb-1" style="color:white;"><i class="bx bx-plus" style="top: 0px;"></i></a>
+        <a type="button" data-toggle="modal" data-target="#createSplit" class="btn btn-primary btn-icon rounded-circle glow mr-1 mb-1" style="color:white;"><i class="bx bx-plus" style="top: 0px;"></i></a>
     </div>
 </div>
 <div class="users-list-table">
@@ -36,22 +37,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
+                            @foreach($splits as $currentSplit)
+                            <tr>
+                                <td>
+                                    {{$currentSplit->type}}
+                                </td>
+                                <td>
+                                    {{$currentSplit->stock_class}}
+                                </td>
+                                <td>
+                                    {{$currentSplit->record_date}}
+                                </td>
+                                <td>
+                                    {{$currentSplit->pay_date}}
+                                </td>
+                                <td>
+                                    {{$currentSplit->ordinary_devidend}}
+                                </td>
+                                <td>
+                                    {{$currentSplit->rate}}
+                                </td>
+                                <td>
+                                    <a class="icons" href="{{ route('admin.splits.edit', $currentSplit->id) }}">
+                                        <button type="button" class="btn btn-icon btn-light-warning mr-1 mb-1">
+                                            <i class="bx bx-edit-alt"></i></button>
+                                    </a>
+                                    <form action="{{ route('admin.splits.delete', $currentSplit->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to set delete this Split?');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <button type="submit" class="btn btn-icon btn-light-danger mr-1 mb-1" name="submit" alt="Submit">
+                                            <i class="bx bx-x"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -61,106 +80,105 @@
     </div>
 </div>
 <!-- Modal -->
-<div id="createShareholder" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<div id="createSplit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
+        <!-- Modal content-->
 
-                                <th>Control Ticket</th>
-                                <th>ID</th>
-                                <th>Company</th>
-                                <th>Received</th>
-                                <th>How Received</th>
-                                <th>Count</th>
-                                <th>SEC Tracking</th>
-                                <th>Rcvd From</th>
-                                <th>Tracking #</th>
-                                <th>SCL #</th>
-                                <th>Assigned</th>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create Devidend, Distribution or Split</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route("admin.splits.store") }}" id="splitForm" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Type of Devidend or Split</label>
+                            <select name="type" id="type" class="form-control">
+                                <option value="cd">CD -Cash Distribution</option>
+                                <option value="sd">SD -Stock Dividend</option>
+                                <option value="is">IS -Incremental Split</option>
+                                <option value="rs">RS -Forward Replacement Split</option>
+                                <option value="vs">VS -Reverse Replacement Split</option>
+                                <option value="sc">SC -S-Corp Distrib - Allocate State WH tax</option>
+                                <option value="sf">SF -S-Corp Distrib - Flat State WH tax</option>
+                            </select>
+                        </div>
 
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Select a Stock Class</label>
+                            <select name="stock_class" id="stock_class" class="form-control">
+                                <option value="cs1">CS1</option>
+                                <option value="cs2">CS2</option>
+                                <option value="cs3">CS3</option>
+                            </select>
+                        </div>
+                    </div>
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Create Devidend, Distribution or Split</h4>
-    </div>
-    <div class="modal-body">
-        <form action="{{ route("admin.shareholders.store") }}" id="shareholderForm" method="POST" enctype="multipart/form-data">
-        @csrf
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Type of Devidend or Split</label>
-                    <select name="cars" id="cars" class="form-control">
-                      <option value="volvo">CD -Cash Distribution</option>
-                      <option value="saab">SD -Stock Dividend</option>
-                      <option value="mercedes">IS -Incremental Split</option>
-                      <option value="audi">RS -Forward Replacement Split</option>
-                      <option value="audi">VS -Reverse Replacement Split</option>
-                      <option value="audi">SC -S-Corp Distrib - Allocate State WH tax</option>
-                      <option value="audi">SF -S-Corp Distrib - Flat State WH tax</option>
-                    </select>
-                </div>
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Record Date</label>
+                            <input type="text" id="record_date" name="record_date" class="form-control datepicker" value="" required>
+                        </div>
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Pay Date</label>
+                            <input type="text" id="pay_date" name="pay_date" class="form-control datepicker" value="" required>
+                        </div>
+                    </div>
 
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6" >
-                    <label for="target">Select a Stock Class</label>
-                    <input type="text" id="nameAsAppearsOnCertificate" name="name_as_appears_on_certificate" class="form-control birthdate-picker" value="" required>
-                </div>
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                            <label for="target">Ordinary Devidend</label>
+                            <input type="text" id="ordinary_devidend" name="ordinary_devidend" class="form-control " value="" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                            <label for="target">This Cash Distribution consists of:</label><br>
+                            <input type="checkbox" id="cash_devidend" name="cash_devidend" value="1">
+                            <label for="vehicle1">Ordinary Cash Devidend</label><br>
+                            <input type="checkbox" id="capital_gains" name="capital_gains" value="1">
+                            <label for="vehicle1">Capital Gains</label><br>
+                            <input type="checkbox" id="non_devidend_distribution" name="non_devidend_distribution" value="1">
+                            <label for="vehicle1">Non-Devidend Distribution (Return of Capital)</label><br>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                            <label for="target">Total rate/share for this Cash Distribution</label>
+                            <input type="text" id="rate" name="rate" class="form-control " value="" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Create</button>
+                    </div>
+                </form>
             </div>
 
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Record Date</label>
-                    <input type="text" id="registration" name="registration" class="form-control " value="" required>
-                </div>
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                    <label for="target">Pay Date</label>
-                    <input type="text" id="registration" name="registration" class="form-control " value="" required>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                    <label for="target">Ordinary Devidend</label>
-                    <input type="text" id="ssno" name="ssno" class="form-control " value="" required>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                    <label for="target">This Cash Distribution consists of:</label><br>
-                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                    <label for="vehicle1">Ordinary Cash Devidend</label><br>
-                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                    <label for="vehicle1">Capital Gains</label><br>
-                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                    <label for="vehicle1">Non-Devidend Distribution (Return of Capital)</label><br>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                    <label for="target">Total rate/share for this Cash Distribution</label>
-                    <input type="text" id="ssno" name="ssno" class="form-control " value="" required>
-                </div>
-            </div>
-
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Create</button>
         </div>
-        </form>
     </div>
+    @endsection
+    {{-- vendor scripts --}}
+    @section('vendor-scripts')
+    <script src="{{asset('vendors/js/tables/datatable/datatables.min.js')}}"></script>
+    <script src="{{asset('vendors/js/tables/datatable/dataTables.bootstrap4.min.js')}}"></script>
+    @endsection
 
-</div>
-</div>
-@endsection
-{{-- vendor scripts --}}
-@section('vendor-scripts')
-<script src="{{asset('vendors/js/tables/datatable/datatables.min.js')}}"></script>
-<script src="{{asset('vendors/js/tables/datatable/dataTables.bootstrap4.min.js')}}"></script>
-@endsection
-
-{{-- page scripts --}}
-@section('page-scripts')
-<script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
-@endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- page scripts --}}
+    @section('page-scripts')
+    <script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+        });
+    </script>
+    @endsection
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

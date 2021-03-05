@@ -28,11 +28,6 @@
                 </div>
             </li>
 
-            <!-- @can('dashboard_access')
-        <li class="nav-item {{ request()->is('admin/dashboard*') ? 'active' : '' }}"><a href="/admin/dashboard"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">{{ trans('global.dashboard') }}</span></a>
-        </li>
-        @endcan -->
-
             </li>
             <li class="nav-item {{ request()->is('admin/shareholders*') ? 'active' : '' }}"><a href="{{ route("admin.shareholders.index") }}"><i class="menu-livicon" data-icon="dashboard"></i><span class="menu-title" data-i18n="{{ trans('cruds.user.title') }}">Shareholders</span></a>
             </li>
@@ -52,7 +47,7 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->is('admin/splits') ? 'active' : '' }}">
+            <li class="nav-item {{ request()->is('admin/splits*') ? 'active' : '' }}">
                 <a href="/admin/splits">
                     <i class="menu-livicon" data-icon="priority-low"></i>
                     <span class="menu-title" data-i18n="{{ trans('cruds.client.title') }}">
@@ -70,7 +65,7 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->is('admin/reports') ? 'active' : '' }}">
+            <li class="nav-item {{ request()->is('admin/reports*') ? 'active' : '' }}">
                 <a href="/admin/reports">
                     <i class="menu-livicon" data-icon="settings"></i>
                     <span class="menu-title" data-i18n="{{ trans('cruds.client.title') }}">
