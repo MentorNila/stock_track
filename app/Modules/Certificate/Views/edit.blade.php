@@ -66,9 +66,9 @@
                         <input type="text" id="received_from" name="received_from" class="form-control " value="{{$certificate->received_from}}" required>
                     </div>
 
-                    <div class="form-group {{ $errors->has('broker') ? 'has-error' : '' }} col-lg-6">
-                        <label for="broker">Broker involved for Cost Basis</label>
-                        <input type="text" id="broker" name="broker" class="form-control " value="{{$certificate->broker}}" required>
+                    <div class="col-lg-6" style="padding-top: 25px;">
+                        <input type="checkbox" id="broker" name="broker" @if($certificate->broker == 1) checked @endif>
+                        <label for="broker">Broker involved</label>
                     </div>
                 </div>
 
@@ -116,31 +116,31 @@
     </div>
 </div>
 @endsection
-    {{-- vendor scripts --}}
-    @section('vendor-scripts')
-    <script src="{{asset('vendors/js/tables/datatable/datatables.min.js')}}"></script>
-    <script src="{{asset('vendors/js/tables/datatable/dataTables.bootstrap4.min.js')}}"></script>
-    @endsection
+{{-- vendor scripts --}}
+@section('vendor-scripts')
+<script src="{{asset('vendors/js/tables/datatable/datatables.min.js')}}"></script>
+<script src="{{asset('vendors/js/tables/datatable/dataTables.bootstrap4.min.js')}}"></script>
+@endsection
 
-    {{-- page scripts --}}
-    @section('page-scripts')
-    <script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $(".datepicker").datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
+{{-- page scripts --}}
+@section('page-scripts')
+<script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
         });
-    </script>
-    @endsection
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).on('click', function() {
-            if ($('#costOfBasisReceived').is(':checked')) {
-                $('#costItems').removeClass('hidden');
-            } else {
-                $('#costItems').addClass('hidden');
-            }
-        })
-    </script>
+    });
+</script>
+@endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).on('click', function() {
+        if ($('#costOfBasisReceived').is(':checked')) {
+            $('#costItems').removeClass('hidden');
+        } else {
+            $('#costItems').addClass('hidden');
+        }
+    })
+</script>

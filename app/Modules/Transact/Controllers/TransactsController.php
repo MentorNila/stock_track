@@ -10,11 +10,15 @@ use Illuminate\Http\Request;
 
 class TransactsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $transactions = Transact::get();
         $users = User::get();
         $companies = Company::get();
+        $activeCompany = $request->session()->get('activeCompany');
+        if($activeCompany->id) {
+            $transactions = Transact::where('company_id', $activeCompany->id)->get();
+        }
         $companiesArray = [];
         $usersArray = [];
         foreach($companies as $currentCompany) {
@@ -26,9 +30,13 @@ class TransactsController extends Controller
         return view('Transact::index', compact('transactions', 'users', 'companiesArray', 'usersArray'));
     }
 
-    public function pending_transact()
+    public function pending_transact(Request $request)
     {
-        $transactions = Transact::where('statuts', '=', 1)->get();
+        $transactions = Transact::where('status', '=', 1)->get();
+        $activeCompany = $request->session()->get('activeCompany');
+        if($activeCompany->id) { 
+            $transactions = Transact::where('status', 1)->where('company_id', $activeCompany->id)->get();
+        }
         return view('Transact::pending', compact('transactions'));
     }
 

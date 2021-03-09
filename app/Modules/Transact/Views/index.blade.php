@@ -129,8 +129,20 @@
 
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                            <label for="target">Received From</label>
+                            <label for="target">Received</label>
                             <input type="text" id="received" name="received" class="form-control datepicker" value="" required>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">at</label>
+                            <input type="text" id="received_at" name="received_at" class="form-control " value="" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                            <label for="target">Received From</label>
+                            <input type="text" id="received_from" name="received_from" class="form-control datepicker" value="" required>
                         </div>
 
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">

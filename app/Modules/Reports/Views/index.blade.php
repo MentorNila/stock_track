@@ -5,18 +5,9 @@
 {{-- page styles --}}
 @section('page-styles')
 <link rel="stylesheet" type="text/css" href="{{asset('css/pages/page-users.css')}}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @endsection
 @section('content')
-<div class="row grid-title">
-    <div class="col-lg-12">
-        <h1>Reports</h1>
-    </div>
-</div>
-<div style="margin-bottom: 10px;" class="row">
-    <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-        <a type="button" href="" class="btn btn-primary btn-icon rounded-circle glow mr-1 mb-1"><i class="bx bx-plus"></i></a>
-    </div>
-</div>
 <div class="users-list-table">
     <div class="card">
         <div class="card-content">
@@ -26,33 +17,151 @@
                     <table id="users-list-datatable" class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Tags</th>
-                                <th class="actions"></th>
+                                <th>Reports</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr>
-                                <td><a href="/admin/reporting/forms">Forms Report</a></td>
-                                <td>List all review forms.</td>
-                                <td></td>
-                                <td></td>
-                            </tr> -->
-                            <!-- <tr>
-                                <td><a href="/admin/reporting/todos">To-dos Report</a></td>
-                                <td>List all workflow todos.</td>
-                                <td></td>
-                                <td></td>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#transactionJournal">
+                                        Transaction Journal
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#activeShares">
+                                        Total Active Shares by Stock Class/Shareholder
+                                    </button>
+                                </td>
                             </tr>
                             <tr>
-                                <td><a href="/admin/reporting/feedback">Feedback Report</a></td>
-                                <td>List all feedback shared in the organization.</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#certificatesIssued">
+                                        Certificates Issued
+                                    </button>
+                                </td>
                                 <td></td>
-                                <td></td>
-                            </tr> -->
+                            </tr>
                         </tbody>
                     </table>
+                    <!-- Modal -->
+                    <div id="activeShares" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Active Shares</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Some text in the modal.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div id="transactionJournal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Transaction Journal</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route("admin.splits.store") }}" id="splitForm" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                                <label for="target">Date Range</label>
+                                                <input type="text" id="date_range" name="date_range" class="form-control datepicker" value="">
+                                            </div>
+
+                                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                                <label for="target">Through</label>
+                                                <input type="text" id="through" name="through" class="form-control datepicker" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                                <label for="target">Stock Class</label>
+                                                <select name="type" id="stock_type" class="form-control">
+                                                    <option value="cd">CS1</option>
+                                                    <option value="sd">CS2</option>
+                                                    <option value="is">CS3</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                                <label for="target">Stock Type</label>
+                                                <select name="type" id="stock_type" class="form-control">
+                                                    <option value="cd">CS1</option>
+                                                    <option value="sd">CS2</option>
+                                                    <option value="is">CS3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                                <input type="radio" id="cash_devidend" name="first_radio" value="1">
+                                                <label for="vehicle1">All Transaction Types</label><br>
+                                                <input type="radio" id="capital_gains" name="first_radio" value="1">
+                                                <label for="vehicle1">New Issues</label><br>
+                                                <input type="radio" id="non_devidend_distribution" name="first_radio" value="1">
+                                                <label for="vehicle1">Transfer Transactions</label><br>
+                                                <input type="radio" id="non_devidend_distribution" name="first_radio" value="1">
+                                                <label for="vehicle1">Retired/Void Transactions</label><br>
+                                                <input type="radio" id="non_devidend_distribution" name="first_radio" value="1">
+                                                <label for="vehicle1">Conversions</label><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                                <input type="radio" id="cash_devidend" name="second_radio" value="1">
+                                                <label for="vehicle1">Landscape version</label><br>
+                                                <input type="radio" id="capital_gains" name="second_radio" value="1">
+                                                <label for="vehicle1">Count of Transactions and Certificates Processed Only</label><br>
+                                                <input type="radio" id="non_devidend_distribution" name="second_radio" value="1">
+                                                <label for="vehicle1">Portrait version (includes price/share)</label><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                                <input type="checkbox" id="cash_devidend" name="cash_devidend" value="1">
+                                                <label for="vehicle1">Exclude Unprinted Certificates</label><br>
+                                                <input type="checkbox" id="capital_gains" name="capital_gains" value="1">
+                                                <label for="vehicle1">Show Voids in Transfers/Conversions</label><br>
+                                                <input type="checkbox" id="non_devidend_distribution" name="non_devidend_distribution" value="1">
+                                                <label for="vehicle1">Supress Routine/Non Routine and Mailed Date Information</label><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                                <input type="checkbox" id="cash_devidend" name="cash_devidend" value="1">
+                                                <label for="vehicle1">Include totals page(s) - Count of transactions</label><br>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Preview</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
                 <!-- datatable ends -->
             </div>
@@ -71,4 +180,12 @@
 {{-- page scripts --}}
 @section('page-scripts')
 <script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
 @endsection

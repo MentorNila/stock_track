@@ -23,6 +23,10 @@ class ShareholdersController extends Controller
     public function index(Request $request)
     {
         $shareholders = Shareholder::get();
+        $activeCompany = $request->session()->get('activeCompany');
+        if($activeCompany->id) {
+            $shareholders = Shareholder::where('company_id', $activeCompany->id)->get();
+        }
         return view('Shareholder::index', compact('shareholders'))->with(['shareholders' => $shareholders]);
     }
 

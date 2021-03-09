@@ -17,10 +17,15 @@ class SplitsController extends Controller
     public function index(Request $request)
     {
         $splits = Split::get();
+        $activeCompany = $request->session()->get('activeCompany');
+        if ($activeCompany->id) {
+            $splits = Split::where('company_id', $activeCompany->id)->get();
+        }
         return view('Split::index', compact('splits'));
     }
 
-    public function edit($splitId) {
+    public function edit($splitId)
+    {
         $split = Split::find($splitId);
         return view('Split::edit', compact('split'));
     }
@@ -29,11 +34,12 @@ class SplitsController extends Controller
     {
         $split = Split::find($splitId);
         $split->update($request->all());
-        
+
         return redirect()->route('admin.splits.index');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $splitData = $request->all();
         $activeCompany = $request->session()->get('activeCompany');
         $splitData['company_id'] = $activeCompany->id;
@@ -41,7 +47,8 @@ class SplitsController extends Controller
         return redirect()->route('admin.splits.index');
     }
 
-    public function delete($splitId) {
+    public function delete($splitId)
+    {
         Split::destroy($splitId);
         return redirect()->route('admin.splits.index');
     }

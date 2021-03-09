@@ -5,6 +5,7 @@
 @section('vendor-styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/css/forms/select/select2.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/css/pickers/pickadate/pickadate.css')}}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @endsection
 @section('content')
 <div class="card">
@@ -50,7 +51,7 @@
                 <div class="row">
                     <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
                         <label for="target">Ordinary Devidend</label>
-                        <input type="text" id="ordinary_devidend" name="ordinary_devidend" class="form-control " value="{{$split->ordirary_devidend}}" required>
+                        <input type="text" id="ordinary_devidend" name="ordinary_devidend" class="form-control " value="{{$split->ordinary_devidend}}" required>
                     </div>
                 </div>
 
@@ -88,6 +89,15 @@
 <script src="{{asset('vendors/js/pickers/pickadate/picker.date.js')}}"></script>
 @endsection
 @section('page-scripts')
+<script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
 <script>
     $('#email-error').hide();
 

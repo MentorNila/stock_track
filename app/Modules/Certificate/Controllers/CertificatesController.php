@@ -25,6 +25,11 @@ class CertificatesController extends Controller
     {
         $shareholders = Shareholder::get();
         $certificates = Certificate::get();
+        $activeCompany = $request->session()->get('activeCompany');
+        if($activeCompany->id) {
+            $shareholders = Shareholder::where('company_id', $activeCompany->id)->get();
+            $certificates = Certificate::where('company_id', $activeCompany->id)->get();
+        }
         return view('Certificate::index', compact('shareholders', 'certificates'))->with(['shareholders' => $shareholders, 'certificates' => $certificates]);
     }
 

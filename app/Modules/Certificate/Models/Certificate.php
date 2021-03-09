@@ -22,6 +22,7 @@ class Certificate extends MultitenancyModel
         'received_from',
         'acquired',
         'amt_share',
+        'fmw',
         'broker',
         'cost_of_basis_received',
     ];

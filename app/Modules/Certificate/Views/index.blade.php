@@ -143,9 +143,9 @@
                             <input type="text" id="received_from" name="received_from" class="form-control " value="" required>
                         </div>
 
-                        <div class="form-group {{ $errors->has('broker') ? 'has-error' : '' }} col-lg-6">
-                            <label for="broker">Broker involved for Cost Basis</label>
-                            <input type="text" id="broker" name="broker" class="form-control " value="" required>
+                        <div class="col-lg-6" style="padding-top: 25px;">
+                            <input type="checkbox" id="broker" name="broker" value="1">
+                            <label for="broker">Broker involved</label>
                         </div>
                     </div>
 

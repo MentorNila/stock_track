@@ -263,10 +263,12 @@ class TenantDatabase {
             $table->string('received_from')->nullable();
             $table->string('acquired')->nullable();
             $table->string('amt_share')->nullable();
-            $table->string('broker')->nullable();
+            $table->boolean('broker')->default(0);
+            $table->string('fmw')->nullable();
             $table->boolean('cost_of_basis_received')->default(0);
             $table->timestamps();
         }, $clientId);
+        
 
         MultitenancySchema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
@@ -276,6 +278,7 @@ class TenantDatabase {
             $table->string('scl')->nullable();
             $table->string('control_ticket')->nullable();
             $table->datetime('received')->nullable();
+            $table->string('received_from')->nullable();
             $table->string('how_received')->nullable();
             $table->string('track')->nullable();
             $table->string('content')->nullable();

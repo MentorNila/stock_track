@@ -95,7 +95,7 @@
                     @csrf
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                            <label for="target">Type of Devidend or Split</label>
+                            <label for="type">Type of Devidend or Split</label>
                             <select name="type" id="type" class="form-control">
                                 <option value="cd">CD -Cash Distribution</option>
                                 <option value="sd">SD -Stock Dividend</option>
