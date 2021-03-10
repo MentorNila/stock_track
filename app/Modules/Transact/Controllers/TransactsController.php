@@ -34,7 +34,7 @@ class TransactsController extends Controller
     {
         $transactions = Transact::where('status', '=', 1)->get();
         $activeCompany = $request->session()->get('activeCompany');
-        if($activeCompany->id) { 
+        if(isset($activeCompany->id)) { 
             $transactions = Transact::where('status', 1)->where('company_id', $activeCompany->id)->get();
         }
         return view('Transact::pending', compact('transactions'));

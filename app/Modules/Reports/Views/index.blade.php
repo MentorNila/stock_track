@@ -29,41 +29,21 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#activeShares">
+                                    <a type="button" href="/admin/reports/active_shares" class="btn btn-info btn-lg">
                                         Total Active Shares by Stock Class/Shareholder
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#certificatesIssued">
+                                    <a type="button" href="/admin/reports/certificates" class="btn btn-info btn-lg">
                                         Certificates Issued
-                                    </button>
+                                    </a>
                                 </td>
                                 <td></td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- Modal -->
-                    <div id="activeShares" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Active Shares</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Some text in the modal.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                     <!-- Modal -->
                     <div id="transactionJournal" class="modal fade" role="dialog">
                         <div class="modal-dialog">

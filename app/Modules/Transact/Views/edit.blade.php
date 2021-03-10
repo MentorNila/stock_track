@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/css/forms/select/select2.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/css/pickers/pickadate/pickadate.css')}}">
 @endsection
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @section('content')
 <div class="card">
     <div class="card-content">
@@ -43,8 +44,20 @@
 
                 <div class="row">
                     <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                        <label for="target">Received</label>
+                        <input type="text" id="received" name="received" class="form-control datepicker" value="{{$transaction->received}}">
+                    </div>
+
+                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                        <label for="target">at</label>
+                        <input type="text" id="received_at" name="received_at" class="form-control " value="{{$transaction->received_at}}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                         <label for="target">Received From</label>
-                        <input type="text" id="received" name="received" class="form-control datepicker" value="{{$transaction->received}}" required>
+                        <input type="text" id="received_from" name="received_from" class="form-control " value="{{$transaction->received}}" required>
                     </div>
 
                     <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
@@ -83,54 +96,14 @@
 <script src="{{asset('vendors/js/pickers/pickadate/picker.date.js')}}"></script>
 @endsection
 @section('page-scripts')
+<script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
-    $('#email-error').hide();
-
-    $(".select2").select2({
-        width: '100%'
-    });
-
-    $("#userForm").submit(function(e) {
-        e.preventDefault();
-        var email = $('#email').val();
-        var userId = $('#user_id').val();
-
-        $.ajax({
-            type: 'POST',
-            data: {
-                id: userId,
-                email: email,
-                // id: id,
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/admin/users/check-email',
-            success: function(response) {
-                if (response.success === 'true') {
-
-                    $('#email-error').show();
-                    $("#email").focus();
-                } else {
-                    $('#userForm').unbind().submit();
-                }
-            }
+    $(document).ready(function() {
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
         });
     });
-
-    $('#password-error').hide();
-
-    $("#update-password-form").submit(function(e) {
-        e.preventDefault();
-        var password = $('#password').val();
-
-        if (password.length < 6) {
-            $('#password-error').show();
-
-        } else {
-            $('#update-password-form').unbind().submit();
-        }
-    });
 </script>
-<script src="{{asset('js/scripts/pages/page-users.js')}}"></script>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

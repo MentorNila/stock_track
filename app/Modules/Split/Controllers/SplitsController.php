@@ -4,11 +4,6 @@ namespace App\Modules\Split\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Split\Models\Split;
-use Gate;
-use Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +13,7 @@ class SplitsController extends Controller
     {
         $splits = Split::get();
         $activeCompany = $request->session()->get('activeCompany');
-        if ($activeCompany->id) {
+        if (isset($activeCompany->id)) {
             $splits = Split::where('company_id', $activeCompany->id)->get();
         }
         return view('Split::index', compact('splits'));

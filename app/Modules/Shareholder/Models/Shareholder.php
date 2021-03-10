@@ -2,8 +2,8 @@
 
 namespace App\Modules\Shareholder\Models;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Multitenancy\MultitenancyModel;
+use App\Modules\Certificate\Models\Certificate;
 
 class Shareholder extends MultitenancyModel
 {
@@ -17,5 +17,10 @@ class Shareholder extends MultitenancyModel
         'ssno',
         'address'
     ];
+
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
+    }
 
 }

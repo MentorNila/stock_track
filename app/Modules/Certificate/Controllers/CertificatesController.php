@@ -2,22 +2,11 @@
 
 namespace App\Modules\Certificate\Controllers;
 
-use App\Modules\Company\Logic\CompanyLogic;
 use App\Http\Controllers\Controller;
-use App\Modules\Role\Logic\Roles;
-use App\Modules\Company\Models\Company;
-use App\Modules\User\Models\User;
-use App\Modules\Employee\Models\Employee;
-use App\Modules\Goal\Models\Goal;
 use App\Modules\Shareholder\Models\Shareholder;
 use App\Modules\Certificate\Models\Certificate;
-use Gate;
-use Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CertificatesController extends Controller
 {
@@ -26,7 +15,7 @@ class CertificatesController extends Controller
         $shareholders = Shareholder::get();
         $certificates = Certificate::get();
         $activeCompany = $request->session()->get('activeCompany');
-        if($activeCompany->id) {
+        if(isset($activeCompany->id)) {
             $shareholders = Shareholder::where('company_id', $activeCompany->id)->get();
             $certificates = Certificate::where('company_id', $activeCompany->id)->get();
         }

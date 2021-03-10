@@ -278,6 +278,7 @@ class TenantDatabase {
             $table->string('scl')->nullable();
             $table->string('control_ticket')->nullable();
             $table->datetime('received')->nullable();
+            $table->time('received_at')->nullable();
             $table->string('received_from')->nullable();
             $table->string('how_received')->nullable();
             $table->string('track')->nullable();

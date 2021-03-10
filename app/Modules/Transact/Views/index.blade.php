@@ -142,7 +142,7 @@
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                             <label for="target">Received From</label>
-                            <input type="text" id="received_from" name="received_from" class="form-control datepicker" value="" required>
+                            <input type="text" id="received_from" name="received_from" class="form-control " value="" required>
                         </div>
 
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
