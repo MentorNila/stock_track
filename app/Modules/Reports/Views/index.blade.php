@@ -90,44 +90,44 @@
 
                                         <div class="row">
                                             <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                                <input type="radio" id="cash_devidend" name="first_radio" value="1">
+                                                <input type="radio" id="cash_dividend" name="first_radio" value="1">
                                                 <label for="vehicle1">All Transaction Types</label><br>
                                                 <input type="radio" id="capital_gains" name="first_radio" value="1">
                                                 <label for="vehicle1">New Issues</label><br>
-                                                <input type="radio" id="non_devidend_distribution" name="first_radio" value="1">
+                                                <input type="radio" id="non_dividend_distribution" name="first_radio" value="1">
                                                 <label for="vehicle1">Transfer Transactions</label><br>
-                                                <input type="radio" id="non_devidend_distribution" name="first_radio" value="1">
+                                                <input type="radio" id="non_dividend_distribution" name="first_radio" value="1">
                                                 <label for="vehicle1">Retired/Void Transactions</label><br>
-                                                <input type="radio" id="non_devidend_distribution" name="first_radio" value="1">
+                                                <input type="radio" id="non_dividend_distribution" name="first_radio" value="1">
                                                 <label for="vehicle1">Conversions</label><br>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                                <input type="radio" id="cash_devidend" name="second_radio" value="1">
+                                                <input type="radio" id="cash_dividend" name="second_radio" value="1">
                                                 <label for="vehicle1">Landscape version</label><br>
                                                 <input type="radio" id="capital_gains" name="second_radio" value="1">
                                                 <label for="vehicle1">Count of Transactions and Certificates Processed Only</label><br>
-                                                <input type="radio" id="non_devidend_distribution" name="second_radio" value="1">
+                                                <input type="radio" id="non_dividend_distribution" name="second_radio" value="1">
                                                 <label for="vehicle1">Portrait version (includes price/share)</label><br>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                                <input type="checkbox" id="cash_devidend" name="cash_devidend" value="1">
+                                                <input type="checkbox" id="cash_dividend" name="cash_dividend" value="1">
                                                 <label for="vehicle1">Exclude Unprinted Certificates</label><br>
                                                 <input type="checkbox" id="capital_gains" name="capital_gains" value="1">
                                                 <label for="vehicle1">Show Voids in Transfers/Conversions</label><br>
-                                                <input type="checkbox" id="non_devidend_distribution" name="non_devidend_distribution" value="1">
+                                                <input type="checkbox" id="non_dividend_distribution" name="non_dividend_distribution" value="1">
                                                 <label for="vehicle1">Supress Routine/Non Routine and Mailed Date Information</label><br>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                                <input type="checkbox" id="cash_devidend" name="cash_devidend" value="1">
+                                                <input type="checkbox" id="cash_dividend" name="cash_dividend" value="1">
                                                 <label for="vehicle1">Include totals page(s) - Count of transactions</label><br>
                                             </div>
                                         </div>

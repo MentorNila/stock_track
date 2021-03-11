@@ -63,8 +63,13 @@
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <button type="submit" class="btn btn-icon btn-light-danger mr-1 mb-1" name="submit" alt="Submit">
-                                            <i class="bx bx-x"></i></button>
+                                            <i class="bx bx-x"></i>
+                                        </button>
                                     </form>
+                                    @else
+                                    <a type="button" href="/admin/companies/active/{{$company->id}}" title="Make Company Active" class="btn btn-icon btn-light-success mr-1 mb-1" name="submit" alt="Submit">
+                                        <i class="bx bx-been-here"></i>
+                                    </a>
                                     @endif
                                 </td>
                             </tr>

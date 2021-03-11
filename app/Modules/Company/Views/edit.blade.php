@@ -25,12 +25,12 @@
                                 <span class="align-middle">Account</span>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" id="notes-tab" data-toggle="tab" href="#notes" aria-controls="notes" role="tab" aria-selected="false">
                                 <i class="bx bx-crop align-middle"></i>
                                 <span class="align-middle">Notes</span>
                             </a>
-                        </li> -->
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" id="name-history-tab" data-toggle="tab" href="#nameHistory" aria-controls="nameHistory" role="tab" aria-selected="false">
                                 <i class="bx bx-info-circle align-middle"></i>
@@ -298,9 +298,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($companyHistory as $key => $company)
-                                        <tr data-entry-id="">
-                                            <td>{{ $company->name ?? '' }}</td>
+                                        @foreach($companyNotes as $currentNote)
+                                        <tr>
+                                            <td>
+                                                {{$currentNote->note}}
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

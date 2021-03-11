@@ -15,7 +15,7 @@
                 @csrf
                 <div class="row">
                     <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                        <label for="target">Type of Devidend or Split</label>
+                        <label for="target">Type of dividend or Split</label>
                         <select name="type" id="type" class="form-control">
                             <option value="cd" @if($split->type == 'cd') selected @endif>CD -Cash Distribution</option>
                             <option value="sd" @if($split->type == 'sd') selected @endif>SD -Stock Dividend</option>
@@ -50,20 +50,20 @@
 
                 <div class="row">
                     <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                        <label for="target">Ordinary Devidend</label>
-                        <input type="text" id="ordinary_devidend" name="ordinary_devidend" class="form-control " value="{{$split->ordinary_devidend}}" required>
+                        <label for="target">Ordinary dividend</label>
+                        <input type="text" id="ordinary_dividend" name="ordinary_dividend" class="form-control " value="{{$split->ordinary_dividend}}" required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
                         <label for="target">This Cash Distribution consists of:</label><br>
-                        <input type="checkbox" id="cash_devidend" name="cash_devidend" value="1" @if($split->cash_devidend) checked @else @endif">
-                        <label for="vehicle1">Ordinary Cash Devidend</label><br>
+                        <input type="checkbox" id="cash_dividend" name="cash_dividend" value="1" @if($split->cash_dividend) checked @else @endif">
+                        <label for="vehicle1">Ordinary Cash dividend</label><br>
                         <input type="checkbox" id="capital_gains" name="capital_gains" value="1" @if($split->capital_gains) checked @else @endif">
                         <label for="vehicle1">Capital Gains</label><br>
-                        <input type="checkbox" id="non_devidend_distribution" name="non_devidend_distribution" value="1" @if($split->non_devidend_distribution) checked @else @endif">
-                        <label for="vehicle1">Non-Devidend Distribution (Return of Capital)</label><br>
+                        <input type="checkbox" id="non_dividend_distribution" name="non_dividend_distribution" value="1" @if($split->non_dividend_distribution) checked @else @endif">
+                        <label for="vehicle1">Non-dividend Distribution (Return of Capital)</label><br>
                     </div>
                 </div>
 

@@ -14,10 +14,10 @@ class Split extends MultitenancyModel
         'stock_class',
         'record_date',
         'pay_date',
-        'ordinary_devidend',
-        'cash_devidend',
+        'ordinary_dividend',
+        'cash_dividend',
         'capital_gains',
-        'non_devidend_distribution',
+        'non_dividend_distribution',
         'rate',
         'status'
     ];

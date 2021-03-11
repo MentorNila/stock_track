@@ -10,7 +10,7 @@
 @section('content')
 <div class="row grid-title">
     <div class="col-lg-12">
-        <h1>Devidend/Splits</h1>
+        <h1>Dividend/Splits</h1>
     </div>
 </div>
 <div style="margin-bottom: 10px;" class="row">
@@ -27,7 +27,7 @@
                     <table id="users-list-datatable" class="table">
                         <thead>
                             <tr>
-                                <th>Type of Devidend/Split</th>
+                                <th>Type of Dividend/Split</th>
                                 <th>Stock Class</th>
                                 <th>Record Date</th>
                                 <th>Pay Date</th>
@@ -52,7 +52,7 @@
                                     {{$currentSplit->pay_date}}
                                 </td>
                                 <td>
-                                    {{$currentSplit->ordinary_devidend}}
+                                    {{$currentSplit->ordinary_dividend}}
                                 </td>
                                 <td>
                                     {{$currentSplit->rate}}
@@ -88,14 +88,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create Devidend, Distribution or Split</h4>
+                <h4 class="modal-title">Create Dividend, Distribution or Split</h4>
             </div>
             <div class="modal-body">
                 <form action="{{ route("admin.splits.store") }}" id="splitForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                            <label for="type">Type of Devidend or Split</label>
+                            <label for="type">Type of dividend or Split</label>
                             <select name="type" id="type" class="form-control">
                                 <option value="cd">CD -Cash Distribution</option>
                                 <option value="sd">SD -Stock Dividend</option>
@@ -130,20 +130,20 @@
 
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                            <label for="target">Ordinary Devidend</label>
-                            <input type="text" id="ordinary_devidend" name="ordinary_devidend" class="form-control " value="" required>
+                            <label for="target">Ordinary dividend</label>
+                            <input type="text" id="ordinary_dividend" name="ordinary_dividend" class="form-control " value="" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
                             <label for="target">This Cash Distribution consists of:</label><br>
-                            <input type="checkbox" id="cash_devidend" name="cash_devidend" value="1">
-                            <label for="vehicle1">Ordinary Cash Devidend</label><br>
+                            <input type="checkbox" id="cash_dividend" name="cash_dividend" value="1">
+                            <label for="vehicle1">Ordinary Cash dividend</label><br>
                             <input type="checkbox" id="capital_gains" name="capital_gains" value="1">
                             <label for="vehicle1">Capital Gains</label><br>
-                            <input type="checkbox" id="non_devidend_distribution" name="non_devidend_distribution" value="1">
-                            <label for="vehicle1">Non-Devidend Distribution (Return of Capital)</label><br>
+                            <input type="checkbox" id="non_dividend_distribution" name="non_dividend_distribution" value="1">
+                            <label for="vehicle1">Non-dividend Distribution (Return of Capital)</label><br>
                         </div>
                     </div>
 

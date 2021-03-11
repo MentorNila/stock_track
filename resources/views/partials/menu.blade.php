@@ -51,7 +51,7 @@
                 <a href="/admin/splits">
                     <i class="menu-livicon" data-icon="priority-low"></i>
                     <span class="menu-title" data-i18n="{{ trans('cruds.client.title') }}">
-                        Devidend/Splits
+                        Dividend/Splits
                     </span>
                 </a>
             </li>

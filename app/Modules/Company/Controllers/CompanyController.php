@@ -8,11 +8,10 @@ use App\Modules\Client\Models\Client;
 use App\Modules\Company\Logic\CompanyLogic;
 use App\Modules\Company\Models\Company;
 use App\Modules\Company\Models\CompanyHistory;
+use App\Modules\Company\Models\CompanyNote;
 use App\Modules\Company\Requests\MassDestroyCompanyRequest;
 use App\Modules\Company\Requests\StoreCompanyRequest;
 use App\Modules\Company\Requests\UpdateCompanyRequest;
-use App\Modules\Filing\Models\Filing;
-use App\Modules\User\Models\User;
 use App\Modules\User\Models\UserCompany;
 use Gate;
 use Auth;
@@ -41,6 +40,10 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         $company = Company::create($request->all());
+        $notes = $request->notes;
+        foreach($notes as $currentNote) {
+            CompanyNote::create(['company_id' => $company->id, 'note' => $currentNote]);
+        }
 
         (new UserCompany())->store(auth()->user()->id,$company->id);
 
@@ -61,8 +64,9 @@ class CompanyController extends Controller
 
         $user_id = Auth::user()->id;
         $companyHistory = CompanyHistory::where('company_id', $company->id)->get();
+        $companyNotes = CompanyNote::where('company_id', $company->id)->get();
 
-        return view('Company::edit', compact('company', 'companyHistory'));
+        return view('Company::edit', compact('company', 'companyHistory', 'companyNotes'));
     }
 
     public function update(UpdateCompanyRequest $request, Company $company)
@@ -80,6 +84,14 @@ class CompanyController extends Controller
     {
         $company = Company::find($companyId);
         $company->active = 0;
+        $company->save();
+        return redirect()->route('admin.companies.index');
+    }
+    
+    public function active($companyId)
+    {
+        $company = Company::find($companyId);
+        $company->active = 1;
         $company->save();
         return redirect()->route('admin.companies.index');
     }

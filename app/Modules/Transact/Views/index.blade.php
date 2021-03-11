@@ -103,25 +103,53 @@
             <div class="modal-body">
                 <form action="{{ route("admin.transacts.store") }}" id="transactForm" method="POST" enctype="multipart/form-data">
                     @csrf
+
                     <div class="row">
-                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                            <input type="radio" id="capital_gains" name="first_radio" value="transfer">
+                            <label for="vehicle1">Transfer</label>
+                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="new_issue">
+                            <label for="vehicle1">New Issue</label>
+                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="replace_lost">
+                            <label for="vehicle1">Replace Lost/Stolen</label><br>
+                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="replace_damaged">
+                            <label for="vehicle1">Replace Damaged/Destroyed</label>
+                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="retire_certs">
+                            <label for="vehicle1">Retire Certs</label>
+                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="stock_conversion">
+                            <label for="vehicle1">Stock Conversion</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
                             <label for="target">SEC Tracking</label>
-                            <input type="text" id="sec_tracking" name="sec_tracking" class="form-control " value="" required>
+                            <br>
+                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="routine">
+                            <label for="vehicle1">Routine</label>
+                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="non_routine">
+                            <label for="vehicle1">Non Routine</label>
+                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="void">
+                            <label for="vehicle1">Void</label>
+                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="rejected">
+                            <label for="vehicle1">Rejected</label>
+                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="not_an_item">
+                            <label for="vehicle1">Not an Item</label>
                         </div>
 
-                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                            <label for="target">Item Count</label>
-                            <input type="text" id="item_count" name="item_count" class="form-control " value="" required>
-                        </div>
                     </div>
 
                     <div class="row">
-                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
+                            <label for="target">Item Count</label>
+                            <input type="text" id="item_count" name="item_count" class="form-control " value="" required>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
                             <label for="target">ID/SCL</label>
                             <input type="text" id="scl" name="scl" class="form-control " value="" required>
                         </div>
 
-                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
                             <label for="target">Control Ticket</label>
                             <input type="text" id="control_ticket" name="control_ticket" class="form-control " value="" required>
                         </div>
@@ -142,7 +170,11 @@
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                             <label for="target">Received From</label>
-                            <input type="text" id="received_from" name="received_from" class="form-control " value="" required>
+                            <select name="received_from" id="received_from" class="form-control">
+                                @foreach($shareholders as $shareholder)
+                                <option value="{{$shareholder->id}}">{{$shareholder->name_as_appears_on_certificate}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">

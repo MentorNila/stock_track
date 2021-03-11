@@ -479,6 +479,15 @@ class TenantDatabase {
             $table->softDeletes();
 
         }, $clientId);
+        
+        MultitenancySchema::create('company_notes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('company_id');
+            $table->string('note');
+            $table->timestamps();
+            $table->softDeletes();
+
+        }, $clientId);
 
         MultitenancySchema::create('filing_tags', function (Blueprint $table) {
             $table->bigIncrements('id');

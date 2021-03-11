@@ -11,35 +11,30 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ReportsController extends Controller
 {
-    public function __construct(Request $request) {
-
+    public function __construct(Request $request)
+    {
     }
 
     public function index(Request $request, $reportKey = null)
     {
         $shareholders = Shareholder::get();
         $activeCompany = $request->session()->get('activeCompany');
-        if(isset($activeCompany->id)) {
+        if (isset($activeCompany->id)) {
             $shareholders = Shareholder::where('company_id', $activeCompany->id)->get();
         }
         $reportNames = [
             'active_shares' => 'Total Active Shares by Stock Class/Shareholder'
         ];
-        if($reportKey) {
+        if ($reportKey) {
             $totalCompanyShares = Certificate::where('company_id', $activeCompany->id)->sum('total_shares');
-            // $shareholdersActiveShares = Certificate::
-            //     join('shareholders', 'shareholders.id', '=', 'certificates.shareholder_id')
-            //     ->select('shareholders.name_as_appears_on_certificate', DB::raw('sum(total_shares) as total_shares'))
-            //     ->where('company_id', $activeCompany->id)
-            //     ->groupBy('certificates.shareholder_id');
-                $shareHolderData = [];
-                foreach($shareholders as $currentShareholder) {
-                    $activeShares = Certificate::where('shareholder_id', $currentShareholder->id)->sum('total_shares');
-                    $shareHolderData[$currentShareholder->id] = $activeShares;
-                }
+            $shareHolderData = [];
+            foreach ($shareholders as $currentShareholder) {
+                $activeShares = Certificate::where('shareholder_id', $currentShareholder->id)->sum('total_shares');
+                $shareHolderData[$currentShareholder->id] = $activeShares;
+            }
             return view('Reports::specific', [
-                'reportName' => $reportNames[$reportKey], 
-                'reportKey' => $reportKey, 
+                'reportName' => $reportNames[$reportKey],
+                'reportKey' => $reportKey,
                 'shareholders' => $shareholders,
                 'totalCompanyShares' => $totalCompanyShares,
                 'shareholderData' => $shareHolderData

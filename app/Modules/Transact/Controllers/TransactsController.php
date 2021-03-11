@@ -5,6 +5,7 @@ namespace App\Modules\Transact\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Transact\Models\Transact;
 use App\Modules\Company\Models\Company;
+use App\Modules\Shareholder\Models\Shareholder;
 use App\Modules\User\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,8 @@ class TransactsController extends Controller
         foreach($users as $currentUser) {
             $usersArray[$currentUser->id] = $currentUser->name;
         }
-        return view('Transact::index', compact('transactions', 'users', 'companiesArray', 'usersArray'));
+        $shareholders = Shareholder::where('company_id', $activeCompany->id)->get();
+        return view('Transact::index', compact('transactions', 'users', 'companiesArray', 'usersArray', 'shareholders'));
     }
 
     public function pending_transact(Request $request)

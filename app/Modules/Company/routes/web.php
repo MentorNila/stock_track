@@ -7,6 +7,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::delete('companies/unactive/{companyId}', 'CompanyController@unactive')->name('companies.unactive');
         Route::resource('companies', 'CompanyController');
     	Route::GET('/companies/set/{companyId}', 'CompanyController@set')->name('companies.set');
+        Route::GET('/companies/active/{companyId}', 'CompanyController@active')->name('companies.active');
 
     });
 });
