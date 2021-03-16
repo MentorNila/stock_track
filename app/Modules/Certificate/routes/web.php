@@ -6,6 +6,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.', 'module' => 'Certificate',
 
     Route::GET('/certificates/delete/{certificateId}', 'CertificatesController@delete')->name('certificates.delete');
     Route::GET('/certificates/edit/{certificateId}', 'CertificatesController@edit')->name('certificates.edit');
+    Route::Get('/certificates/show/{certificateId}', 'CertificatesController@show')->name('certificates.show');
     Route::POST('/certificates/update/{certificateId}', 'CertificatesController@update')->name('certificates.update');
 
     Route::post('/certificates/store', [

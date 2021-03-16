@@ -3,51 +3,53 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.user.title') }}
+        Certificate Details
+        <button type="button" style="float:right;" class="btn btn-warning glow mb-1 mb-sm-0 mr-0 mr-sm-1 pull-right">Print</button>
     </div>
-
     <div class="card-body">
-        <div>
-            <table class="table table-bordered table-striped">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable">
+                <thead>
+                    <tr>
+                        <th>
+                            Stock Class
+                        </th>
+                        <th>
+                            Total Shares
+                        </th>
+                        <th>
+                            Issued Date
+                        </th>
+                        <th>
+                            Number of Paper Certificates to Issue
+                        </th>
+                        <th>
+                            Reason/Reservation
+                        </th>
+                        <th>
+                            Received From
+                        </th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.id') }}
-                        </th>
                         <td>
-                            {{ $user->id }}
+                            {{$certificate->stock_class}}
                         </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.name') }}
-                        </th>
                         <td>
-                            {{ $user->name }}
+                            {{$certificate->total_shares}}
                         </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.email') }}
-                        </th>
                         <td>
-                            {{ $user->email }}
+                            {{$certificate->issued_date}}
                         </td>
-                    </tr>
-                    {{--<tr>
-                        <th>
-                            {{ trans('cruds.user.fields.email_verified_at') }}
-                        </th>
                         <td>
-                            {{ $user->email_verified_at }}
+                            {{$certificate->number_of_paper_certificates_to_issue}}
                         </td>
-                    </tr>--}}
-                    <tr>
-                        <th>
-                            Role
-                        </th>
                         <td>
-                            {{ $user->role->title }}
+                            {{$certificate->reservation}}
+                        </td>
+                        <td>
+                            {{$certificate->received_from}}
                         </td>
                     </tr>
                 </tbody>

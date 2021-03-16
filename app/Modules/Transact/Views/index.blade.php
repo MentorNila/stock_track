@@ -32,6 +32,7 @@
                                 <th>Company</th>
                                 <th>ID/SCL</th>
                                 <th>Control Ticket</th>
+                                <th>Received</th>
                                 <th>Received From</th>
                                 <th>How Received</th>
                                 <th>Tracking #</th>
@@ -61,13 +62,16 @@
                                     {{$currentTransact->received}}
                                 </td>
                                 <td>
+                                    {{$shareholdersArray[$currentTransact->received_from]}}
+                                </td>
+                                <td>
                                     {{$currentTransact->how_received}}
                                 </td>
                                 <td>
                                     {{$currentTransact->track}}
                                 </td>
                                 <td>
-                                    {{$usersArray[$currentTransact->assigned_to]}}
+                                    
                                 </td>
                                 <td style="min-width:110px;">
                                     <a class="icons" href="{{ route('admin.transacts.edit', $currentTransact->id) }}">
@@ -106,17 +110,17 @@
 
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                            <input type="radio" id="capital_gains" name="first_radio" value="transfer">
+                            <input class="first_radio" type="radio" id="capital_gains" name="first_radio" value="transfer" checked>
                             <label for="vehicle1">Transfer</label>
-                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="new_issue">
+                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="first_radio" value="new_issue">
                             <label for="vehicle1">New Issue</label>
-                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="replace_lost">
+                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="first_radio" value="replace_lost">
                             <label for="vehicle1">Replace Lost/Stolen</label><br>
-                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="replace_damaged">
+                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="first_radio" value="replace_damaged">
                             <label for="vehicle1">Replace Damaged/Destroyed</label>
-                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="retire_certs">
+                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="first_radio" value="retire_certs">
                             <label for="vehicle1">Retire Certs</label>
-                            <input type="radio" id="non_dividend_distribution" name="first_radio" value="stock_conversion">
+                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="first_radio" value="stock_conversion">
                             <label for="vehicle1">Stock Conversion</label>
                         </div>
                     </div>
@@ -124,15 +128,15 @@
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
                             <label for="target">SEC Tracking</label>
                             <br>
-                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="routine">
+                            <input class="second_first_radio" type="radio" id="non_dividend_distribution" name="sec_tracking" value="routine">
                             <label for="vehicle1">Routine</label>
-                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="non_routine">
+                            <input class="second_first_radio" type="radio" id="non_dividend_distribution" name="sec_tracking" value="non_routine">
                             <label for="vehicle1">Non Routine</label>
-                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="void">
+                            <input class="second_radio" type="radio" id="non_dividend_distribution" name="sec_tracking" value="void" disabled>
                             <label for="vehicle1">Void</label>
-                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="rejected">
+                            <input class="second_radio" type="radio" id="non_dividend_distribution" name="sec_tracking" value="rejected" disabled>
                             <label for="vehicle1">Rejected</label>
-                            <input type="radio" id="non_dividend_distribution" name="sec_tracking" value="not_an_item">
+                            <input class="second_radio" type="radio" id="non_dividend_distribution" name="sec_tracking" value="not_an_item" disabled>
                             <label for="vehicle1">Not an Item</label>
                         </div>
 
@@ -141,29 +145,29 @@
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
                             <label for="target">Item Count</label>
-                            <input type="text" id="item_count" name="item_count" class="form-control " value="" required>
+                            <input type="text" id="item_count" name="item_count" class="form-control " value="" disabled>
                         </div>
 
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
                             <label for="target">ID/SCL</label>
-                            <input type="text" id="scl" name="scl" class="form-control " value="" required>
+                            <input type="text" id="scl" name="scl" class="form-control " value="">
                         </div>
 
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
                             <label for="target">Control Ticket</label>
-                            <input type="text" id="control_ticket" name="control_ticket" class="form-control " value="" required>
+                            <input type="text" id="control_ticket" name="control_ticket" class="form-control " value="">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                             <label for="target">Received</label>
-                            <input type="text" id="received" name="received" class="form-control datepicker" value="" required>
+                            <input type="text" id="received" name="received" class="form-control datepicker" value="">
                         </div>
 
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                             <label for="target">at</label>
-                            <input type="text" id="received_at" name="received_at" class="form-control " value="" required>
+                            <input type="text" id="received_at" name="received_at" class="form-control " value="">
                         </div>
                     </div>
 
@@ -187,14 +191,6 @@
                         <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                             <label for="target">Tracking #</label>
                             <input type="text" id="track" name="track" class="form-control " value="" required>
-                        </div>
-                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                            <label for="target">Assigned</label>
-                            <select name="assigned_to" id="assigned_to" class="form-control">
-                                @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endforeach
-                            </select>
                         </div>
                     </div>
 
@@ -221,6 +217,17 @@
         $(document).ready(function() {
             $(".datepicker").datepicker({
                 dateFormat: 'yy-mm-dd'
+            });
+            $('.first_radio').click(function() {
+                if ($(this).val() == 'transfer') {
+                    $('.second_first_radio').removeAttr('disabled');
+                    $('.second_radio').prop("disabled", true);
+                    $('#item_count').prop("disabled", true);
+                } else {
+                    $('.second_first_radio').prop("disabled", true);
+                    $('.second_radio').removeAttr('disabled');
+                    $('#item_count').removeAttr('disabled');
+                }
             });
         });
     </script>

@@ -5,6 +5,7 @@ namespace App\Modules\Certificate\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Shareholder\Models\Shareholder;
 use App\Modules\Certificate\Models\Certificate;
+use App\Modules\Transact\Models\Transact;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,16 @@ class CertificatesController extends Controller
     }
 
     public function store(Request $request) {
+        $loggedInUser = Auth::user();
+        $loggedInUserId = $loggedInUser->id;
         $certificateData = $request->all();
         $activeCompany = $request->session()->get('activeCompany');
         $certificateData['company_id'] = $activeCompany->id;
-        $certificateData = Certificate::create($certificateData);
+        $transactData = $certificateData;
+        $transactData['assigned_to'] = $loggedInUserId;
+        $certificateData['received_from'] = $certificateData['received_from_certificate'];
+        Certificate::create($certificateData);
+        Transact::create($transactData);
         return redirect()->route('admin.certificates.index');
     }
 
@@ -38,6 +45,11 @@ class CertificatesController extends Controller
         $certificate = Certificate::find($certificateId);
 
         return view('Certificate::edit', compact('certificate', 'shareholders'));
+    }
+
+    public function show($certificateId) {
+        $certificate = Certificate::find($certificateId);
+        return view('Certificate::show', compact('certificate'));
     }
 
     public function update(Request $request, $certificateId)

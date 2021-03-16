@@ -8,6 +8,7 @@ use App\Modules\Company\Models\Company;
 use App\Modules\Shareholder\Models\Shareholder;
 use App\Modules\User\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactsController extends Controller
 {
@@ -29,7 +30,11 @@ class TransactsController extends Controller
             $usersArray[$currentUser->id] = $currentUser->name;
         }
         $shareholders = Shareholder::where('company_id', $activeCompany->id)->get();
-        return view('Transact::index', compact('transactions', 'users', 'companiesArray', 'usersArray', 'shareholders'));
+        $shareholdersArray = [];
+        foreach($shareholders as $currentShareholder) {
+            $shareholdersArray[$currentShareholder->id] = $currentShareholder->ref_name;
+        }
+        return view('Transact::index', compact('transactions', 'users', 'companiesArray', 'usersArray', 'shareholders', 'shareholdersArray'));
     }
 
     public function pending_transact(Request $request)
@@ -49,9 +54,12 @@ class TransactsController extends Controller
     }
 
     public function store(Request $request) {
+        $loggedInUser = Auth::user();
+        $loggedInUserId = $loggedInUser->id;
         $transactionData = $request->all();
         $activeCompany = $request->session()->get('activeCompany');
         $transactionData['company_id'] = $activeCompany->id;
+        $transactionData['assigned_to'] = $loggedInUserId;
         Transact::create($transactionData);
         return redirect()->route('admin.logTransacts.index');
     }

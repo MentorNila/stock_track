@@ -16,6 +16,7 @@ class Transact extends MultitenancyModel
         'control_ticket',
         'received',
         'received_at',
+        'received_from',
         'how_received',
         'track',
         'content',
