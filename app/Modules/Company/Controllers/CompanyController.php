@@ -42,7 +42,9 @@ class CompanyController extends Controller
         $company = Company::create($request->all());
         $notes = $request->notes;
         foreach($notes as $currentNote) {
-            CompanyNote::create(['company_id' => $company->id, 'note' => $currentNote]);
+            if(!empty($currentNote)) {
+                CompanyNote::create(['company_id' => $company->id, 'note' => $currentNote]);
+            }
         }
 
         (new UserCompany())->store(auth()->user()->id,$company->id);

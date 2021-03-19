@@ -29,8 +29,7 @@
                                 <th>Ref Name</th>
                                 <th>Name as Appears on Certificate</th>
                                 <th>Registration</th>
-                                <th>SSno</th>
-                                <th>Address</th>
+                                <th>Address One</th>
                                 <th>Status</th>
                                 <th class="actions">Actions</th>
                             </tr>
@@ -48,10 +47,7 @@
                                     {{$shareholder->registration}}
                                 </td>
                                 <td>
-                                    {{$shareholder->ssno}}
-                                </td>
-                                <td>
-                                    {{$shareholder->address}}
+                                    {{$shareholder->address_one}}
                                 </td>
                                 <td>
                                     @if($shareholder->active == 1)
@@ -97,223 +93,228 @@
             <div class="modal-body">
                 <form action="{{ route("admin.shareholders.store") }}" id="shareholderForm" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h6>Shareholder</h6>
+                    <nav>
+                        <div class="nav nav-pills nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-link active" id="step1-tab" data-toggle="tab" href="#step1" style="margin-right:5px;">Shareholder</a>
+                            <a class="nav-link" id="step2-tab" data-toggle="tab" href="#step2">Other</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-4" id="nav-tabContent" style="padding-top:1.5rem !important;">
+                        <div class="tab-pane fade show active" id="step1">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Ref Name</label>
+                                        <input type="text" id="refName" name="ref_name" class="form-control " value="" required>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                            <label for="target">Name as appears on certificate</label>
+                                            <input type="text" id="nameAsAppearsOnCertificate" name="name_as_appears_on_certificate" class="form-control birthdate-picker" value="" required>
+                                        </div>
+
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                            <label for="target">Registration</label>
+                                            <input type="text" id="registration" name="registration" class="form-control " value="" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                            <label for="target">Address1</label>
+                                            <input class="first_radio" type="radio" id="capital_gains" name="country_one" value="usa" checked>
+                                            <label for="vehicle1">USA</label>
+                                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="country_one" value="canada">
+                                            <label for="vehicle1">CANADA</label>
+                                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="country_one" value="other">
+                                            <label for="vehicle1">OTHER</label><br>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                            <label for="target">Address</label>
+                                            <input type="text" id="registration" name="address_one" class="form-control " value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                            <label for="target">City</label>
+                                            <input type="text" id="registration" name="city_one" class="form-control " value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
+                                            <label for="target">State</label>
+                                            <input type="text" id="registration" name="state_one" class="form-control " value="">
+                                        </div>
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
+                                            <label for="target">ZIP</label>
+                                            <input type="text" id="registration" name="zip_one" class="form-control " value="">
+                                        </div>
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
+                                            <label for="target">Deliv Pt.</label>
+                                            <input type="text" id="registration" name="deliv_one" class="form-control " value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                            <label for="target">Primary TIN Name</label>
+                                            <input type="text" id="primary_tin_name" name="primary_tin_name" class="form-control" value="" required>
+                                        </div>
+
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                            <label for="target"> </label><br>
+                                            <input class="first_radio" type="radio" id="capital_gains" name="primary_tin_radio" value="ssn" checked>
+                                            <label for="vehicle1">SSN</label>
+                                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="primary_tin_radio" value="ein">
+                                            <label for="vehicle1">EIN</label>
+                                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="primary_tin_radio" value="sin">
+                                            <label for="vehicle1">SIN</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                            <label for="target">2ND TIN Name</label>
+                                            <input type="text" id="second_tin_name" name="second_tin_name" class="form-control birthdate-picker" value="" required>
+                                        </div>
+
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                            <label for="target"> </label><br>
+                                            <input class="first_radio" type="radio" id="capital_gains" name="second_tin_radio" value="ssn" checked>
+                                            <label for="vehicle1">SSN</label>
+                                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="second_tin_radio" value="ein">
+                                            <label for="vehicle1">EIN</label>
+                                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="second_tin_radio" value="sin">
+                                            <label for="vehicle1">SIN</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6" style="padding-top: 25px;">
+                                            <input type="checkbox" id="broker" name="use_address_two_for_checks" value="1">
+                                            <label for="">Use Address Two for checks</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                            <label for="target">Address2</label>
+                                            <input class="first_radio" type="radio" id="capital_gains" name="country_two" value="usa" checked>
+                                            <label for="vehicle1">USA</label>
+                                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="country_two" value="canada">
+                                            <label for="vehicle1">CANADA</label>
+                                            <input class="first_radio" type="radio" id="non_dividend_distribution" name="country_two" value="other">
+                                            <label for="vehicle1">OTHER</label><br>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                            <label for="target">Address</label>
+                                            <input type="text" id="registration" name="address_two" class="form-control " value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                            <label for="target">City</label>
+                                            <input type="text" id="registration" name="city_two" class="form-control " value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
+                                            <label for="target">State</label>
+                                            <input type="text" id="registration" name="state_two" class="form-control " value="">
+                                        </div>
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
+                                            <label for="target">ZIP</label>
+                                            <input type="text" id="registration" name="zip_two" class="form-control " value="">
+                                        </div>
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
+                                            <label for="target">Deliv Pt.</label>
+                                            <input type="text" id="registration" name="deliv_two" class="form-control " value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End of first step -->
+                        <!-- Start of second step -->
+                        <div class="tab-pane fade" id="step2">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Benefical Owner</label>
+                                        <input type="text" id="refName" name="benefical_owner" class="form-control " value="" required>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Family</label>
+                                        <input type="text" id="refName" name="family" class="form-control " value="" required>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Sponsor</label>
+                                        <input type="text" id="refName" name="sponsor" class="form-control " value="" required>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Financial Advisor</label>
+                                        <input type="text" id="refName" name="financial_advisor" class="form-control " value="" required>
+                                    </div>
+                                    <h7>Insider</h7>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }}">
+                                        <label for="target">Employee Title</label>
+                                        <input type="text" id="registration" name="employee_title" class="form-control " value="">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                            <label for="target">Officer</label>
+                                            <input type="text" id="registration" name="officer" class="form-control " value="">
+                                        </div>
+                                        <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
+                                            <label for="target">Director</label>
+                                            <input type="text" id="registration" name="director" class="form-control " value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h7>Direct Deposit</h7>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Direct Dep Acct</label>
+                                        <input type="text" name="direct_dep_one" class="form-control " value="" required>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Bank Routing</label>
+                                        <input type="text" name="bank_routing_one" class="form-control " value="" required>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Addendum</label>
+                                        <input type="text" name="addendum_one" class="form-control " value="" required>
+                                    </div>
+                                    <h7>Alternate Account</h7>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Direct Dep Acct</label>
+                                        <input type="text" name="direct_dep_two" class="form-control " value="" required>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
+                                        <label for="target">Bank Routing</label>
+                                        <input type="text" name="bank_routing_two" class="form-control " value="" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Create</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Ref Name</label>
-                                <input type="text" id="refName" name="ref_name" class="form-control " value="" required>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                    <label for="target">Name as appears on certificate</label>
-                                    <input type="text" id="nameAsAppearsOnCertificate" name="name_as_appears_on_certificate" class="form-control birthdate-picker" value="" required>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                    <label for="target">Registration</label>
-                                    <input type="text" id="registration" name="registration" class="form-control " value="" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                    <label for="target">Address1</label>
-                                    <input class="first_radio" type="radio" id="capital_gains" name="country_one" value="usa" checked>
-                                    <label for="vehicle1">USA</label>
-                                    <input class="first_radio" type="radio" id="non_dividend_distribution" name="country_one" value="canada">
-                                    <label for="vehicle1">CANADA</label>
-                                    <input class="first_radio" type="radio" id="non_dividend_distribution" name="country_one" value="other">
-                                    <label for="vehicle1">OTHER</label><br>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                    <label for="target">Address</label>
-                                    <input type="text" id="registration" name="address_one" class="form-control " value="">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                    <label for="target">City</label>
-                                    <input type="text" id="registration" name="city_one" class="form-control " value="">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                                    <label for="target">State</label>
-                                    <input type="text" id="registration" name="state_one" class="form-control " value="">
-                                </div>
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                                    <label for="target">ZIP</label>
-                                    <input type="text" id="registration" name="zip_one" class="form-control " value="">
-                                </div>
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                                    <label for="target">Deliv Pt.</label>
-                                    <input type="text" id="registration" name="deliv_one" class="form-control " value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                    <label for="target">Primary TIN Name</label>
-                                    <input type="text" id="primary_tin_name" name="primary_tin_name" class="form-control" value="" required>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                    <label for="target"> </label><br>
-                                    <input class="first_radio" type="radio" id="capital_gains" name="primary_tin_radio" value="ssn" checked>
-                                    <label for="vehicle1">SSN</label>
-                                    <input class="first_radio" type="radio" id="non_dividend_distribution" name="primary_tin_radio" value="ein">
-                                    <label for="vehicle1">EIN</label>
-                                    <input class="first_radio" type="radio" id="non_dividend_distribution" name="primary_tin_radio" value="sin">
-                                    <label for="vehicle1">SIN</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                    <label for="target">2ND TIN Name</label>
-                                    <input type="text" id="second_tin_name" name="second_tin_name" class="form-control birthdate-picker" value="" required>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                    <label for="target"> </label><br>
-                                    <input class="first_radio" type="radio" id="capital_gains" name="second_tin_radio" value="ssn" checked>
-                                    <label for="vehicle1">SSN</label>
-                                    <input class="first_radio" type="radio" id="non_dividend_distribution" name="second_tin_radio" value="ein">
-                                    <label for="vehicle1">EIN</label>
-                                    <input class="first_radio" type="radio" id="non_dividend_distribution" name="second_tin_radio" value="sin">
-                                    <label for="vehicle1">SIN</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6" style="padding-top: 25px;">
-                                    <input type="checkbox" id="broker" name="use_address_two_for_checks" value="1">
-                                    <label for="">Use Address Two for checks</label>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                    <label for="target">Address2</label>
-                                    <input class="first_radio" type="radio" id="capital_gains" name="country_two" value="usa" checked>
-                                    <label for="vehicle1">USA</label>
-                                    <input class="first_radio" type="radio" id="non_dividend_distribution" name="country_two" value="canada">
-                                    <label for="vehicle1">CANADA</label>
-                                    <input class="first_radio" type="radio" id="non_dividend_distribution" name="country_two" value="other">
-                                    <label for="vehicle1">OTHER</label><br>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                    <label for="target">Address</label>
-                                    <input type="text" id="registration" name="address_two" class="form-control " value="">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
-                                    <label for="target">City</label>
-                                    <input type="text" id="registration" name="city_two" class="form-control " value="">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                                    <label for="target">State</label>
-                                    <input type="text" id="registration" name="state_two" class="form-control " value="">
-                                </div>
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                                    <label for="target">ZIP</label>
-                                    <input type="text" id="registration" name="zip_two" class="form-control " value="">
-                                </div>
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-4">
-                                    <label for="target">Deliv Pt.</label>
-                                    <input type="text" id="registration" name="deliv_two" class="form-control " value="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h6>Other</h6>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Benefical Owner</label>
-                                <input type="text" id="refName" name="benefical_owner" class="form-control " value="" required>
-                            </div>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Family</label>
-                                <input type="text" id="refName" name="family" class="form-control " value="" required>
-                            </div>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Sponsor</label>
-                                <input type="text" id="refName" name="sponsor" class="form-control " value="" required>
-                            </div>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Financial Advisor</label>
-                                <input type="text" id="refName" name="financial_advisor" class="form-control " value="" required>
-                            </div>
-                            <h7>Insider</h7>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }}">
-                                <label for="target">Employee Title</label>
-                                <input type="text" id="registration" name="employee_title" class="form-control " value="">
-                            </div>
-                            <div class="row">
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                    <label for="target">Officer</label>
-                                    <input type="text" id="registration" name="officer" class="form-control " value="">
-                                </div>
-                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
-                                    <label for="target">Director</label>
-                                    <input type="text" id="registration" name="director" class="form-control " value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <h7>Direct Deposit</h7>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Direct Dep Acct</label>
-                                <input type="text" name="direct_dep_one" class="form-control " value="" required>
-                            </div>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Bank Routing</label>
-                                <input type="text" name="bank_routing_one" class="form-control " value="" required>
-                            </div>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Addendum</label>
-                                <input type="text" name="addendum_one" class="form-control " value="" required>
-                            </div>
-                            <h7>Alternate Account</h7>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Direct Dep Acct</label>
-                                <input type="text" name="direct_dep_two" class="form-control " value="" required>
-                            </div>
-                            <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} ">
-                                <label for="target">Bank Routing</label>
-                                <input type="text" name="bank_routing_two" class="form-control " value="" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Create</button>
-                    </div>
+                    <!-- end of tabs -->
                 </form>
             </div>
 

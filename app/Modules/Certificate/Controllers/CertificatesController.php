@@ -47,9 +47,11 @@ class CertificatesController extends Controller
         return view('Certificate::edit', compact('certificate', 'shareholders'));
     }
 
-    public function show($certificateId) {
+    public function show($certificateId, Request $request) {
         $certificate = Certificate::find($certificateId);
-        return view('Certificate::show', compact('certificate'));
+        $activeCompany = $request->session()->get('activeCompany');
+        $activeCompanyName = $activeCompany->name;
+        return view('Certificate::show', compact('certificate', 'activeCompanyName'));
     }
 
     public function update(Request $request, $certificateId)

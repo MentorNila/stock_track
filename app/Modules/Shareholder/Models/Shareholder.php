@@ -12,6 +12,7 @@ class Shareholder extends MultitenancyModel
     protected $fillable = [
         'company_id',
         'ref_name',
+        'registration',
         'name_as_appears_on_certificate',
         'country_one',
         'address_one',

@@ -325,6 +325,20 @@ class TenantDatabase {
             $table->string('status')->default(1);
             $table->timestamps();
         }, $clientId);
+        
+        MultitenancySchema::create('reservations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('company_id');
+            $table->string('code')->nullable();
+            $table->string('class')->nullable();
+            $table->string('description')->nullable();
+            $table->string('reserved')->nullable();
+            $table->string('shares_issued')->nullable();
+            $table->datetime('start_date')->nullable();
+            $table->datetime('end_date')->nullable();
+            $table->string('status')->default(1);
+            $table->timestamps();
+        }, $clientId);
 
         MultitenancyHelper::run(function($client) {
             $timestamp = Carbon::now();

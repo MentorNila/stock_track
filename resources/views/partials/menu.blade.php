@@ -55,6 +55,15 @@
                     </span>
                 </a>
             </li>
+            
+            <li class="nav-item {{ request()->is('admin/reservations*') ? 'active' : '' }}">
+                <a href="/admin/reservations">
+                    <i class="menu-livicon" data-icon="briefcase"></i>
+                    <span class="menu-title" data-i18n="{{ trans('cruds.client.title') }}">
+                        Reservations
+                    </span>
+                </a>
+            </li>
 
             <li class="nav-item {{ request()->is('admin/companies*') ? 'active' : '' }}">
                 <a href="{{ route("admin.companies.index") }}">
