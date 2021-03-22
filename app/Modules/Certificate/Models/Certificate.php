@@ -4,6 +4,7 @@ namespace App\Modules\Certificate\Models;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Multitenancy\MultitenancyModel;
+use App\Modules\Shareholder\Models\Shareholder;
 
 class Certificate extends MultitenancyModel
 {
@@ -26,5 +27,10 @@ class Certificate extends MultitenancyModel
         'broker',
         'cost_of_basis_received',
     ];
+
+    public function shareholder()
+    {
+        return $this->belongsTo(Shareholder::class);
+    }
 
 }

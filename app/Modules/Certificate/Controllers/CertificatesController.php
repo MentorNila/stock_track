@@ -32,8 +32,10 @@ class CertificatesController extends Controller
         $transactData = $certificateData;
         $transactData['assigned_to'] = $loggedInUserId;
         $certificateData['received_from'] = $certificateData['received_from_certificate'];
-        Certificate::create($certificateData);
-        Transact::create($transactData);
+        if(Transact::create($transactData)) {
+            $certificate = Certificate::create($certificateData);
+            return redirect()->route('admin.certificates.show', $certificate->id);
+        }
         return redirect()->route('admin.certificates.index');
     }
 
