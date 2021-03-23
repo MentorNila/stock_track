@@ -90,7 +90,7 @@
                     </span>
                 </a>
             </li>
-            
+<!--             
             <li class=" navigation-header"><span>Client Management</span></li>
             <li class="nav-item {{ request()->is('admin/clients*') ? 'active' : '' }}">
                 <a href="{{ route("admin.clients.index") }}">
@@ -99,7 +99,7 @@
                         {{ trans('cruds.client.title') }}
                     </span>
                 </a>
-            </li>
+            </li> -->
 
         </ul>
     </div>
