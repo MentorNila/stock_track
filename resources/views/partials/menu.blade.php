@@ -55,7 +55,7 @@
                     </span>
                 </a>
             </li>
-            
+
             <li class="nav-item {{ request()->is('admin/reservations*') ? 'active' : '' }}">
                 <a href="/admin/reservations">
                     <i class="menu-livicon" data-icon="briefcase"></i>
@@ -83,7 +83,22 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->is('admin/users*') ? 'active' : '' }}"><a href="{{ route("admin.users.index") }}"><i class="menu-livicon" data-icon="users"></i><span class="menu-title" data-i18n="{{ trans('cruds.user.title') }}">Users</span></a>
+            <li class="nav-item {{ request()->is('admin/users*') ? 'active' : '' }}">
+                <a href="{{ route("admin.users.index") }}">
+                    <i class="menu-livicon" data-icon="users"></i>
+                    <span class="menu-title" data-i18n="{{ trans('cruds.user.title') }}">Users
+                    </span>
+                </a>
+            </li>
+            
+            <li class=" navigation-header"><span>Client Management</span></li>
+            <li class="nav-item {{ request()->is('admin/clients*') ? 'active' : '' }}">
+                <a href="{{ route("admin.clients.index") }}">
+                    <i class="menu-livicon" data-icon="building"></i>
+                    <span class="menu-title" data-i18n="{{ trans('cruds.client.title') }}">
+                        {{ trans('cruds.client.title') }}
+                    </span>
+                </a>
             </li>
 
         </ul>

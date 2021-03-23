@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>iEdgar</title>
+    <title>Stock Track</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
     <link href="{{ asset('images/favicon.ico')}}" rel="icon" />
     <link rel="stylesheet" href="{{ asset('dist/css/style.css')}}">

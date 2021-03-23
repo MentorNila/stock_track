@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'iEdgar',
+    'site_title' => 'Stock Track',
 ];
