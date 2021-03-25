@@ -166,6 +166,7 @@ return [
         ArtemSchander\L5Modular\ModuleServiceProvider::class,
         'App\Modules\Client\Providers\ClientServiceProvider',
         'App\Modules\Client\Providers\VarsServiceProvider',
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -236,7 +237,7 @@ return [
         'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
         'ClientFacade' => 'App\Modules\Client\Facades\ClientFacade',
         'ViewVars'     => 'App\Modules\Client\Facades\ViewVars',
-
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

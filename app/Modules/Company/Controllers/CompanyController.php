@@ -71,6 +71,10 @@ class CompanyController extends Controller
         return view('Company::edit', compact('company', 'companyHistory', 'companyNotes'));
     }
 
+    public function excel_import() {
+        return redirect()->route('admin.companies.index');
+    }
+
     public function update(UpdateCompanyRequest $request, Company $company)
     {
         $companyDetails = Company::find($company->id);

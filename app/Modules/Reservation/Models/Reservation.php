@@ -4,6 +4,7 @@ namespace App\Modules\Reservation\Models;
 
 use App\Models\Multitenancy\MultitenancyModel;
 use App\Modules\Certificate\Models\Certificate;
+use App\Modules\Shareholder\Models\Shareholder;
 
 class Reservation extends MultitenancyModel
 {
@@ -11,6 +12,7 @@ class Reservation extends MultitenancyModel
 
     protected $fillable = [
         'company_id',
+        'shareholder_id',
         'code',
         'class',
         'description',
@@ -20,8 +22,8 @@ class Reservation extends MultitenancyModel
         'end_date',
     ];
 
-    public function certificates()
+    public function shareholder()
     {
-        return $this->hasMany(Certificate::class);
+        return $this->belongsTo(Shareholder::class);
     }
 }

@@ -329,6 +329,7 @@ class TenantDatabase {
         MultitenancySchema::create('reservations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('company_id');
+            $table->string('shareholder_id');
             $table->string('code')->nullable();
             $table->string('class')->nullable();
             $table->string('description')->nullable();

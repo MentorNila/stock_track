@@ -28,6 +28,7 @@
                         <thead>
                             <tr>
                                 <th>Stock ID</th>
+                                <th>Shareholder</th>
                                 <th>Code</th>
                                 <th>Description</th>
                                 <th class="actions">Actions</th>
@@ -38,6 +39,9 @@
                             <tr>
                                 <td>
                                     {{$reservation->class}}
+                                </td>
+                                <td>
+                                    {{$reservation->shareholder->ref_name}}
                                 </td>
                                 <td>
                                     {{$reservation->code}}
@@ -82,6 +86,16 @@
                     @csrf
                     <div class="row">
                         <div class="col-lg-12">
+                            <div class="row">
+                                <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-12">
+                                    <label for="target">Shareholder</label>
+                                    <select name="shareholder_id" id="shareholder_id" class="form-control">
+                                        @foreach($shareholders as $shareholder)
+                                        <option value="{{$shareholder->id}}">{{$shareholder->name_as_appears_on_certificate}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="form-group {{ $errors->has('target') ? 'has-error' : '' }} col-lg-6">
                                     <label for="target">Reservation Code</label>

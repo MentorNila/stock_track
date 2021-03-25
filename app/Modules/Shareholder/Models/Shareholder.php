@@ -4,6 +4,7 @@ namespace App\Modules\Shareholder\Models;
 
 use App\Models\Multitenancy\MultitenancyModel;
 use App\Modules\Certificate\Models\Certificate;
+use App\Modules\Reservation\Models\Reservation;
 
 class Shareholder extends MultitenancyModel
 {
@@ -43,5 +44,10 @@ class Shareholder extends MultitenancyModel
     public function certificates()
     {
         return $this->hasMany(Certificate::class);
+    }
+    
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
     }
 }

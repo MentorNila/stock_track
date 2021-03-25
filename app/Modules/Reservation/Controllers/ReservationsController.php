@@ -4,18 +4,21 @@ namespace App\Modules\Reservation\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Reservation\Models\Reservation;
+use App\Modules\Shareholder\Models\Shareholder;
 use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
 {
     public function index(Request $request)
     {
+        $shareholders = Shareholder::get();
         $reservations = Reservation::get();
         $activeCompany = $request->session()->get('activeCompany');
         if(isset($activeCompany->id)) {
             $reservations = Reservation::where('company_id', $activeCompany->id)->get();
+            $shareholders = Shareholder::where('company_id', $activeCompany->id)->get();
         }
-        return view('Reservation::index', compact('reservations'))->with(['reservations' => $reservations]);
+        return view('Reservation::index', compact('reservations', 'shareholders'));
     }
 
     public function store(Request $request) {

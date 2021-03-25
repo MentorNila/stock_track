@@ -30,6 +30,7 @@
                                 <th>Name as Appears on Certificate</th>
                                 <th>Registration</th>
                                 <th>Address One</th>
+                                <th>Reservations</th>
                                 <th>Status</th>
                                 <th class="actions">Actions</th>
                             </tr>
@@ -48,6 +49,17 @@
                                 </td>
                                 <td>
                                     {{$shareholder->address_one}}
+                                </td>
+                                <td>
+                                    @if(count($shareholder->reservations) > 0)
+                                    <a href="#" data-toggle="tooltip" title="
+                                        @foreach($shareholder->reservations as $reservation)
+                                            Code {{$reservation->code}} / Description {{$reservation->description}} , 
+                                        @endforeach
+                                    ">Hover to View</a>
+                                    @else
+                                    No Reservations
+                                    @endif
                                 </td>
                                 <td>
                                     @if($shareholder->active == 1)

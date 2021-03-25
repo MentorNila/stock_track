@@ -11,6 +11,7 @@
 <div style="margin-bottom: 10px;" class="row">
     <div class="col-lg-12">
         <a type="button" href="{{ route("admin.companies.create") }}" class="btn btn-primary btn-icon rounded-circle glow mr-1 mb-1"><i class="bx bx-plus"></i></a>
+        <a type="button" data-toggle="modal" data-target="#import" class="btn btn-success pull-right btn-icon glow mr-1 mb-1" style="color:white;">Import</a>
     </div>
 </div>
 <div class="company-list-table">
@@ -80,6 +81,31 @@
                 <!-- datatable ends -->
             </div>
         </div>
+    </div>
+</div>
+
+<div id="import" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form action="{{ route("admin.companies.excel_import") }}" id="certificateForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Import Companies</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Upload Excel File</p>
+                    <input type="file" id="companies" name="companies" accept="image/png, image/jpeg">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Import</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 @endsection

@@ -8,6 +8,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::resource('companies', 'CompanyController');
     	Route::GET('/companies/set/{companyId}', 'CompanyController@set')->name('companies.set');
         Route::GET('/companies/active/{companyId}', 'CompanyController@active')->name('companies.active');
+        Route::POST('/companies/excel_import', 'CompanyController@excel_import')->name('companies.excel_import');
 
     });
 });
